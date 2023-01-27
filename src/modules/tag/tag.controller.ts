@@ -1,10 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Post, UseInterceptors } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { EmptyResponseDTO, ResponseWithIdDTO } from 'common';
 import { RequestApi, ResponseApi } from 'kyoongdev-nestjs';
 import { ResponseWithIdInterceptor } from 'utils';
 import { CreateTagDTO, TagsDTO } from './dto';
 import { TagService } from './tag.service';
 
+@ApiTags('태그')
 @Controller('tags')
 export class TagController {
   constructor(private readonly tagService: TagService) {}
