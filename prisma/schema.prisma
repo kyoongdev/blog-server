@@ -25,9 +25,9 @@ model Blog{
 
 model BlogTags{  
   blogId String
-  blog Blog @relation(fields: [blogId], references: [id])
+  blog Blog @relation(fields: [blogId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   tagId String
-  tag Tags @relation(fields: [tagId], references: [id])
+  tag Tags @relation(fields: [tagId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@id([blogId, tagId])
 }
