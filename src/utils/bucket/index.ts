@@ -1,0 +1,23 @@
+import { S3Client } from '@aws-sdk/client-s3';
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import * as AWS from 'aws-sdk';
+
+@Injectable()
+export class BucketService {
+  private readonly s3Object: AWS.S3;
+  constructor(private readonly configService: ConfigService) {
+    this.s3Object = new AWS.S3({
+      region: 'Singapore',
+      endpoint: this.configService.get('S3_BUCKET_NAME'),
+      credentials: {
+        accessKeyId: this.configService.get('S3_ACCESS_KEY'),
+        secretAccessKey: this.configService.get('S3_SECRET_KEY'),
+      },
+    });
+  }
+
+  getStorage() {
+    return this.s3Object;
+  }
+}
