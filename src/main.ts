@@ -21,7 +21,6 @@ import { AppModule } from './app.module';
   await prismaService.enableShutdownHooks(app);
 
   const configService = app.get(ConfigService);
-  process.setMaxListeners(100);
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Kyoongdev Village API')
