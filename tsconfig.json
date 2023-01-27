@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "module": "commonjs",
+    "lib": ["esnext"],
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "noLib": false,
+
+    "resolveJsonModule": true,
+    "downlevelIteration": true
+  },
+  "include": [
+    "src/**/*.json",
+    "src/**/*.ts",
+    "src/*.ts",
+    "files/*.ts",
+    "node_modules/multer",
+    "test/**/*.ts",
+    "test/*.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
+}
