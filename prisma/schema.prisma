@@ -10,7 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Blog{
   id String @id @default(uuid())
   title String @db.VarChar(120)
