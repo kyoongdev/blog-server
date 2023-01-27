@@ -18,7 +18,14 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "migrate:dev": "yarn prisma migrate dev",
+    "config:dev": "cp env/.env.dev .env",
+    "config:prod": "cp env/.env.prod .env",
+    "config:local": "cp env/.env.local .env",
+    "dev": "yarn config:dev && yarn start:dev",
+    "local": "yarn config:local && yarn start:dev",
+    "prod": "yarn config:prod && yarn start"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
