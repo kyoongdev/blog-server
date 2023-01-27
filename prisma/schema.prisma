@@ -30,7 +30,6 @@ model BlogTags{
   tag Tags @relation(fields: [tagId], references: [id])
 
   @@id([blogId, tagId])
-
 }
 
 model Tags {
