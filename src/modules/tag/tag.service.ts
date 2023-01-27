@@ -24,12 +24,12 @@ export class TagService {
     return tags.map((tag) => new TagsDTO(tag));
   }
 
-  async findTagsByBlog(blogId: string) {
+  async findTagsByPost(postId: string) {
     const tags = await this.database.tags.findMany({
       where: {
-        blogs: {
+        posts: {
           some: {
-            blogId,
+            postId,
           },
         },
       },

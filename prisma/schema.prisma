@@ -36,5 +36,5 @@ model Tags {
   id String @id @default(uuid())
   name String
 
-  blogs PostTags[]
+  posts PostTags[]
 }
