@@ -18,7 +18,8 @@ export class PostController {
     },
   })
   @ResponseApi({
-    type: PaginationDTO<PostsDTO>,
+    type: PostsDTO,
+    isPaging: true,
   })
   async findPosts(@Paging() paging: PagingDTO, @Query() query: FindPostsQuery) {
     return await this.postService.findPosts(paging, {
