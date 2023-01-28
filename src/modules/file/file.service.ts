@@ -1,5 +1,5 @@
 import { AbortMultipartUploadCommand, AbortMultipartUploadCommandInput } from '@aws-sdk/client-s3';
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { S3 } from 'aws-sdk';
 import { BucketService } from 'utils';
@@ -9,7 +9,6 @@ export class FileService {
   constructor(private readonly bucketService: BucketService, private readonly config: ConfigService) {}
 
   async uploadImage(file: Express.Multer.File) {
-    const s3 = this.bucketService.getStorage();
     const params: S3.Types.PutObjectRequest = {
       Bucket: 'kyoongdev-blog',
       Key: file.originalname,
@@ -17,10 +16,10 @@ export class FileService {
       ACL: 'public-read',
     };
 
-    s3.upload(params).send((err, data) => {
-      console.log({ err, data });
-    });
+    const result = await this.bucketService.upload(params);
 
-    return '';
+    if (!result) throw new InternalServerErrorException('업로드에 실패했습니다.');
+
+    return result;
   }
 }

@@ -2,6 +2,7 @@ import { S3Client } from '@aws-sdk/client-s3';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as AWS from 'aws-sdk';
+import { S3 } from 'aws-sdk';
 
 @Injectable()
 export class BucketService {
@@ -19,5 +20,19 @@ export class BucketService {
 
   getStorage() {
     return this.s3Object;
+  }
+
+  upload(props: S3.Types.PutObjectRequest) {
+    return new Promise<string | null>((resolve) => {
+      this.s3Object.upload(props, (err, data) => {
+        if (err) {
+          console.log(err);
+          resolve(null);
+        }
+        if (data) {
+          resolve(data.Location);
+        }
+      });
+    });
   }
 }
