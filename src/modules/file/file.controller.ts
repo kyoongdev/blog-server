@@ -3,6 +3,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes } from '@nestjs/swagger';
 import { EmptyResponseDTO, ResponseWithIdDTO } from 'common';
 import { RequestApi, ResponseApi } from 'kyoongdev-nestjs';
+import { UploadedFileDTO } from './dto';
 import { FileService } from './file.service';
 
 @Controller('file')
@@ -26,10 +27,9 @@ export class FileController {
     },
   })
   @ResponseApi({
-    type: EmptyResponseDTO,
+    type: UploadedFileDTO,
   })
   async uploadImage(@UploadedFile() file: Express.Multer.File) {
-    console.log({ file });
-    await this.fileService.uploadImage(file);
+    return await this.fileService.uploadImage(file);
   }
 }

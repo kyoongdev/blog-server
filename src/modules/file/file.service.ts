@@ -1,8 +1,8 @@
-import { AbortMultipartUploadCommand, AbortMultipartUploadCommandInput } from '@aws-sdk/client-s3';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { S3 } from 'aws-sdk';
 import { BucketService } from 'utils';
+import { UploadedFileDTO } from './dto';
 
 @Injectable()
 export class FileService {
@@ -20,6 +20,6 @@ export class FileService {
 
     if (!result) throw new InternalServerErrorException('업로드에 실패했습니다.');
 
-    return result;
+    return new UploadedFileDTO(result);
   }
 }
