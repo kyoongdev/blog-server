@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Request, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { EmptyResponseDTO, ResponseWithIdDTO } from 'common';
-import { PaginationDTO, Paging, PagingDTO, RequestApi, ResponseApi } from 'kyoongdev-nestjs';
+import { Paging, PagingDTO, RequestApi, ResponseApi } from 'kyoongdev-nestjs';
 import { ResponseWithIdInterceptor } from 'utils';
 import { CreatePostDTO, PostDTO, PostsDTO, UpdatePostDTO } from './dto';
 import { FindPostsQuery } from './dto/query';
@@ -12,11 +12,7 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Get()
-  @RequestApi({
-    query: {
-      type: FindPostsQuery,
-    },
-  })
+  @RequestApi({})
   @ResponseApi({
     type: PostsDTO,
     isPaging: true,

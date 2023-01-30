@@ -12,13 +12,13 @@ export class FileController {
 
   @Post('/image')
   @ApiConsumes('multipart/form-data')
-  @UseInterceptors(FileInterceptor('file', { limits: { fileSize: 1024 * 1024 * 10 } }))
+  @UseInterceptors(FileInterceptor('image', { limits: { fileSize: 1024 * 1024 * 10 } }))
   @RequestApi({
     body: {
       schema: {
         type: 'object',
         properties: {
-          file: {
+          image: {
             type: 'string',
             format: 'binary',
           },

@@ -60,6 +60,7 @@ export class PostService {
       const { tags, ...rest } = post;
       return new PostsDTO({ ...rest, tags: tags.map((tag) => tag.tag.name) });
     });
+    console.log(rows);
 
     return new PaginationDTO<PostsDTO>(rows, { count, paging });
   }
