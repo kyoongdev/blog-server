@@ -67,7 +67,7 @@ export class PostService {
   async createPost(props: CreatePostDTO) {
     const { tags, keywords, ...rest } = props;
 
-    const kewordIds = await Promise.all(
+    const keywordIds = await Promise.all(
       keywords.map(async (keyword) => {
         const isExist = await this.database.keyword.findFirst({
           where: {
@@ -92,12 +92,12 @@ export class PostService {
         ...rest,
         tags: {
           createMany: {
-            data: [...tags.map((tag) => ({ tagId: tag }))],
+            data: tags.map((tag) => ({ tagId: tag })),
           },
         },
         keywords: {
           createMany: {
-            data: [...kewordIds.map((keywordId) => ({ keywordId }))],
+            data: keywordIds.map((keywordId) => ({ keywordId })),
           },
         },
       },
