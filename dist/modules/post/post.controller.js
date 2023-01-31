@@ -25,6 +25,9 @@ let PostController = class PostController {
     constructor(postService) {
         this.postService = postService;
     }
+    async findAllPosts() {
+        return await this.postService.findAllPosts();
+    }
     async findPosts(paging, query) {
         return await this.postService.findPosts(paging, {
             where: {
@@ -52,6 +55,17 @@ let PostController = class PostController {
     }
 };
 __decorate([
+    (0, common_1.Get)('/all'),
+    (0, kyoongdev_nestjs_1.RequestApi)({}),
+    (0, kyoongdev_nestjs_1.ResponseApi)({
+        type: common_2.ResponseWithIdDTO,
+        isArray: true,
+    }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], PostController.prototype, "findAllPosts", null);
+__decorate([
     (0, common_1.Get)(),
     (0, kyoongdev_nestjs_1.RequestApi)({}),
     (0, kyoongdev_nestjs_1.ResponseApi)({
@@ -65,7 +79,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PostController.prototype, "findPosts", null);
 __decorate([
-    (0, common_1.Get)('/:id'),
+    (0, common_1.Get)('/:id/detail'),
     (0, kyoongdev_nestjs_1.RequestApi)({
         params: {
             name: 'id',

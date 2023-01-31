@@ -7,6 +7,12 @@ import { CreatePostDTO, PostDTO, PostsDTO, UpdatePostDTO } from './dto';
 export class PostService {
   constructor(private readonly database: PrismaService) {}
 
+  async findAllPosts() {
+    const posts = await this.database.post.findMany({});
+
+    return posts.map((post) => ({ id: post.id }));
+  }
+
   async findPost(id: string) {
     const { tags, keywords, ...rest } = await this.database.post.findUnique({
       where: {

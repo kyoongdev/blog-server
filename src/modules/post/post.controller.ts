@@ -11,6 +11,16 @@ import { PostService } from './post.service';
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
+  @Get('/all')
+  @RequestApi({})
+  @ResponseApi({
+    type: ResponseWithIdDTO,
+    isArray: true,
+  })
+  async findAllPosts() {
+    return await this.postService.findAllPosts();
+  }
+
   @Get()
   @RequestApi({})
   @ResponseApi({
@@ -31,7 +41,7 @@ export class PostController {
     });
   }
 
-  @Get('/:id')
+  @Get('/:id/detail')
   @RequestApi({
     params: {
       name: 'id',

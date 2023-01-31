@@ -5,6 +5,9 @@ import { PostService } from './post.service';
 export declare class PostController {
     private readonly postService;
     constructor(postService: PostService);
+    findAllPosts(): Promise<{
+        id: string;
+    }[]>;
     findPosts(paging: PagingDTO, query: FindPostsQuery): Promise<import("kyoongdev-nestjs").PaginationDTO<PostsDTO>>;
     findPost(id: string): Promise<PostDTO>;
     createPost(body: CreatePostDTO): Promise<string>;

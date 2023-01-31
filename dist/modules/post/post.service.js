@@ -18,6 +18,10 @@ let PostService = class PostService {
     constructor(database) {
         this.database = database;
     }
+    async findAllPosts() {
+        const posts = await this.database.post.findMany({});
+        return posts.map((post) => ({ id: post.id }));
+    }
     async findPost(id) {
         const { tags, keywords, ...rest } = await this.database.post.findUnique({
             where: {

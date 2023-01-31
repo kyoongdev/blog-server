@@ -5,6 +5,9 @@ import { CreatePostDTO, PostDTO, PostsDTO, UpdatePostDTO } from './dto';
 export declare class PostService {
     private readonly database;
     constructor(database: PrismaService);
+    findAllPosts(): Promise<{
+        id: string;
+    }[]>;
     findPost(id: string): Promise<PostDTO>;
     findPosts(paging: PagingDTO, args?: Prisma.PostFindManyArgs): Promise<PaginationDTO<PostsDTO>>;
     createPost(props: CreatePostDTO): Promise<string>;
