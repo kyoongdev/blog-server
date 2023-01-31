@@ -15,4 +15,7 @@ export class CreatePostDTO {
 
   @Property({ apiProperty: { type: 'string', isArray: true } })
   tags: string[];
+
+  @Property({ apiProperty: { type: 'string', isArray: true } })
+  keywords: string[];
 }

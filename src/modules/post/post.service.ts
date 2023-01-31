@@ -60,13 +60,32 @@ export class PostService {
       const { tags, ...rest } = post;
       return new PostsDTO({ ...rest, tags: tags.map((tag) => tag.tag.name) });
     });
-    console.log(rows);
 
     return new PaginationDTO<PostsDTO>(rows, { count, paging });
   }
 
   async createPost(props: CreatePostDTO) {
-    const { tags, ...rest } = props;
+    const { tags, keywords, ...rest } = props;
+
+    const kewordIds = await Promise.all(
+      keywords.map(async (keyword) => {
+        const isExist = await this.database.keyword.findFirst({
+          where: {
+            name: keyword,
+          },
+        });
+
+        if (isExist) return isExist.id;
+
+        const newKeyword = await this.database.keyword.create({
+          data: {
+            name: keyword,
+          },
+        });
+
+        return newKeyword.id;
+      })
+    );
 
     const post = await this.database.post.create({
       data: {
@@ -74,6 +93,11 @@ export class PostService {
         tags: {
           createMany: {
             data: [...tags.map((tag) => ({ tagId: tag }))],
+          },
+        },
+        keywords: {
+          createMany: {
+            data: [...kewordIds.map((keywordId) => ({ keywordId }))],
           },
         },
       },
