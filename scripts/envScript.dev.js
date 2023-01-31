@@ -2,9 +2,6 @@ const fs = require('fs');
 
 const crypto = require('crypto-js');
 
-// const encrypt = (data, key) => {
-//   return crypto.AES.encrypt(data, key).toString();
-// };
 const decrypt = (data, key) => {
   return crypto.AES.decrypt(data, key).toString(crypto.enc.Utf8);
 };
