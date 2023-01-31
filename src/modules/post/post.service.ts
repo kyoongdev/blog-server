@@ -8,7 +8,7 @@ export class PostService {
   constructor(private readonly database: PrismaService) {}
 
   async findPost(id: string) {
-    const { tags, ...rest } = await this.database.post.findUnique({
+    const { tags, keywords, ...rest } = await this.database.post.findUnique({
       where: {
         id,
       },
@@ -22,10 +22,23 @@ export class PostService {
             },
           },
         },
+        keywords: {
+          include: {
+            keyword: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
       },
     });
 
-    return new PostDTO({ ...rest, tags: tags.map((tag) => tag.tag.name) });
+    return new PostDTO({
+      ...rest,
+      tags: tags.map(({ tag }) => tag.name),
+      keywords: keywords.map(({ keyword }) => keyword.name),
+    });
   }
 
   async findPosts(paging: PagingDTO, args = {} as Prisma.PostFindManyArgs) {

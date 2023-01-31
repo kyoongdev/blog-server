@@ -3,6 +3,7 @@ import { Property } from 'kyoongdev-nestjs';
 
 type PostDTOProps = Partial<Post> & {
   tags: string[];
+  keywords: string[];
 };
 
 export class PostDTO {
@@ -30,6 +31,9 @@ export class PostDTO {
   @Property({ apiProperty: { type: 'string', isArray: true } })
   tags: string[];
 
+  @Property({ apiProperty: { type: 'string', isArray: true } })
+  keywords: string[];
+
   constructor(props: PostDTOProps) {
     this.id = props.id;
     this.title = props.title;
@@ -39,5 +43,6 @@ export class PostDTO {
     this.createdAt = `${props.createdAt}`;
     this.updatedAt = `${props.updatedAt}`;
     this.tags = props.tags;
+    this.keywords = props.keywords;
   }
 }
