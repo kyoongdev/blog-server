@@ -1,0 +1,1 @@
+{"version":3,"file":"global.js","sourceRoot":"","sources":["../../src/modules/global.ts"],"names":[],"mappings":";;;;;;;;;AAAA,2CAAgD;AAChD,6DAAsD;AAQ/C,IAAM,YAAY,GAAlB,MAAM,YAAY;CAAG,CAAA;AAAf,YAAY;IANxB,IAAA,eAAM,GAAE;IACR,IAAA,eAAM,EAAC;QACN,OAAO,EAAE,CAAC,4BAAY,CAAC;QACvB,SAAS,EAAE,EAAE;QACb,OAAO,EAAE,CAAC,4BAAY,CAAC;KACxB,CAAC;GACW,YAAY,CAAG;AAAf,oCAAY"}

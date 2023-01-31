@@ -1,0 +1,1 @@
+{"version":3,"file":"data.interceptor.js","sourceRoot":"","sources":["../../../src/utils/interceptor/data.interceptor.ts"],"names":[],"mappings":";;;AACA,+BAAuC;AAEvC,MAAa,eAAe;IAC1B,SAAS,CAAC,OAAyB,EAAE,IAAsB;QACzD,OAAO,IAAI,CAAC,MAAM,EAAE,CAAC,IAAI,CAAC,IAAA,UAAG,EAAC,CAAC,IAAI,EAAE,EAAE,CAAC,CAAC,EAAE,IAAI,EAAE,CAAC,CAAC,CAAC,CAAC;IACvD,CAAC;CACF;AAJD,0CAIC"}
