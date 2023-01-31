@@ -151,6 +151,42 @@ export class PostService {
       };
     }
 
+    if (props.keywords) {
+      const keywordIds = await Promise.all(
+        props.keywords.map(async (keyword) => {
+          const isExist = await this.database.keyword.findFirst({
+            where: {
+              name: keyword,
+            },
+          });
+
+          if (isExist) return isExist.id;
+
+          const newKeyword = await this.database.keyword.create({
+            data: {
+              name: keyword,
+            },
+          });
+
+          return newKeyword.id;
+        })
+      );
+      updateArgs = {
+        where: {
+          id: post.id,
+        },
+        data: {
+          ...updateArgs.data,
+          keywords: {
+            deleteMany: {},
+            createMany: {
+              data: keywordIds.map((keyword) => ({ keywordId: keyword })),
+            },
+          },
+        },
+      };
+    }
+
     await this.database.post.update(updateArgs);
   }
 
