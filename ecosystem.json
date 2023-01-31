@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "name": "api",
+      "script": "dist/main.js",
+      "instances": 0,
+      "exec_mode": "cluster",
+      "instance_var": "INSTANCE_ID"
+    }
+  ]
+}

@@ -17,7 +17,8 @@
     "config:local": "node ./scripts/envScript.local.js",
     "dev": "yarn config:dev && yarn start",
     "local": "yarn config:local && yarn start",
-    "prod": "yarn config:prod && yarn start"
+    "prod": "yarn config:prod && yarn start",
+    "pm2:start": "yarn config:dev && yarn build && pm2 start ./ecosystem.json"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
