@@ -3,11 +3,20 @@ version: 0.1
 phases:
   install:
     commands:
+      - echo update npm...
+      - npm update -g npm
+      - echo node -v
+      - node -v
+      - echo npm -v
+      - npm -v
+      - echo install yarn...
       - npm install -g yarn
-      - yarn install
+      - echo yarn -v
+      - yarn -v
   pre_build:
     commands:
-      - echo pre-build
+      - echo Installing source NPM dependencies...
+      - yarn install
   build:
     commands:
       - yarn build
