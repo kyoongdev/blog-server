@@ -2,11 +2,10 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      nodejs: 16
     commands:
       - echo update npm...
       - npm update -g npm
+      - n v16
       - echo node -v
       - node -v
       - echo npm -v
