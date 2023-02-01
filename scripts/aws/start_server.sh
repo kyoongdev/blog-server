@@ -11,6 +11,5 @@ pm2 kill
 
 yarn install
 
-yarn migrate:dev
 
-yarn pm2 start ecosystem.json
+yarn pm2 start dist/ecosystem.json

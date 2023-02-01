@@ -2,6 +2,8 @@ version: 0.1
 
 phases:
   install:
+    runtime-versions:
+      nodejs: 14
     commands:
       - echo update npm...
       - npm update -g npm
@@ -17,9 +19,12 @@ phases:
     commands:
       - echo Installing source NPM dependencies...
       - yarn install
+      - yarn migrate:dev
+      - yarn prisma generate
   build:
     commands:
       - yarn build
+      - cp ecosystem.json dist/ecosystem.json
   post_build:
     commands:
       - ls -al
