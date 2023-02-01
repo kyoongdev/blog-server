@@ -1,0 +1,18 @@
+version: 0.1
+
+phases:
+  install:
+    commands:
+      - yarn install
+  pre_build:
+    commands:
+      - echo pre-build
+  build:
+    commands:
+      - yarn build
+  post_build:
+    commands:
+      - ls -al
+      - aws s3 cp --recursive dist/ s3://$BUCKET_NAME/
+      - zip test.zip ./*
+      - aws s3 cp test.zip s3://$BUCKET_NAME/test.zip
