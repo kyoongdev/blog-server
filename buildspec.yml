@@ -15,5 +15,5 @@ phases:
     commands:
       - ls -al
       - aws s3 cp --recursive dist/ s3://$BUCKET_NAME/
-      - zip test.zip ./*
-      - aws s3 cp test.zip s3://$BUCKET_NAME/test.zip
+      - zip blog.zip ./*
+      - aws s3 cp blog.zip s3://$BUCKET_NAME/blog.zip
