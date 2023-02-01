@@ -25,6 +25,6 @@ phases:
   post_build:
     commands:
       - ls -al
-      - aws s3 cp --recursive dist/ s3://$BUCKET_NAME/
+      - aws s3 cp --recursive dist/ s3://${BUCKET_NAME}/
       - zip blog.zip ./*
-      - aws s3 cp blog.zip s3://$BUCKET_NAME/blog.zip
+      - aws s3 cp blog.zip s3://${BUCKET_NAME}/blog.zip
