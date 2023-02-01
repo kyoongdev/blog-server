@@ -18,7 +18,7 @@ phases:
     commands:
       - echo Installing source NPM dependencies...
       - yarn install
-      - yarn migrate:dev
+      - yarn prisma migrate dev
       - yarn prisma generate
   build:
     commands:
