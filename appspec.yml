@@ -1,0 +1,20 @@
+#example
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ec2-user/build
+permission:
+  - object: /
+    pattern: '**'
+    owner: ec2-user
+    group: ec2-user
+hooks:
+  ApplicationStart:
+    - location: scripts/aws/start_server.sh
+      timeout: 300
+      runas: ec2-user
+  BeforeInstall:
+    - location: scripts/aws/before_install.sh
+      timeout: 300
+      runas: ec2-user
