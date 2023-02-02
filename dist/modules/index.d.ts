@@ -1,2 +1,2 @@
-import { PostModule } from './post/post.module';
-export declare const Modules: (typeof PostModule)[];
+import { FileModule } from './file/file.module';
+export declare const Modules: (typeof FileModule)[];

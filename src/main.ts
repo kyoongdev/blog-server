@@ -61,6 +61,6 @@ import { AppModule } from './app.module';
   SwaggerModule.setup('api-docs', app, document);
 
   await app.listen(8000, () => {
-    console.info('🔹Server is running on port 8000🔹');
+    console.info('🔹Server is running on port 8000🔹!!');
   });
 })();
