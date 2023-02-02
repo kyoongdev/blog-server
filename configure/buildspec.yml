@@ -33,3 +33,4 @@ artifacts:
     - 'scripts/**/*'
     - 'prisma/**/*'
     - 'package.json'
+    - 'appspec.yml'
