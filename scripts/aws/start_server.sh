@@ -18,4 +18,4 @@ npm install -g pm2
 pm2 stop all
 pm2 kill
 
-yarn pm2 start dist/ecosystem.json
+pm2 start dist/ecosystem.json
