@@ -34,3 +34,7 @@ artifacts:
     - 'prisma/**/*'
     - 'package.json'
     - 'appspec.yml'
+cache:
+  paths:
+    - 'node_modules/**/*'
+    - 'env/*'

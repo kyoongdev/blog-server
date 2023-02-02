@@ -19,4 +19,6 @@ cp /home/ec2-user/build/env/.env.dev /home/ec2-user/build/.env
 
 pm2 stop all
 
+yarn config:dev
+
 pm2 start dist/ecosystem.json
