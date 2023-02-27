@@ -56,6 +56,25 @@ export class PostController {
     return await this.postService.findPost(id);
   }
 
+  @Post('/:id/viewCount')
+  @UseInterceptors(ResponseWithIdInterceptor)
+  @RequestApi({
+    params: {
+      name: 'id',
+      type: 'string',
+      required: true,
+    },
+  })
+  @ResponseApi(
+    {
+      type: EmptyResponseDTO,
+    },
+    204
+  )
+  async increasePostViewCount(@Param('id') id: string) {
+    await this.postService.increaseViewCount(id);
+  }
+
   @Post()
   @UseInterceptors(ResponseWithIdInterceptor)
   @RequestApi({

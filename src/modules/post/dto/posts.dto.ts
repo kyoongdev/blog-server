@@ -18,6 +18,9 @@ export class PostsDTO {
   @Property({ apiProperty: { type: 'string' } })
   description: string;
 
+  @Property({ apiProperty: { type: 'number' } })
+  viewCount: number;
+
   @Property({ apiProperty: { type: 'string', format: 'date-time' } })
   createdAt: string;
 
@@ -31,5 +34,6 @@ export class PostsDTO {
     this.description = props.description;
     this.createdAt = `${props.createdAt}`;
     this.tags = props.tags;
+    this.viewCount = props.viewCount ?? 0;
   }
 }
