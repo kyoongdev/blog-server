@@ -33,7 +33,7 @@ export class PostController {
         ...(query.tags && {
           tags: {
             some: {
-              OR: query.tags.map((tag) => ({ tag: { name: tag } })),
+              OR: query.tags.map((tag) => ({ tag: { id: tag } })),
             },
           },
         }),
