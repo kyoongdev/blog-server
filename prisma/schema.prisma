@@ -56,4 +56,37 @@ model Tags {
   name String
 
   posts PostTags[]
+  projects ProjectSkills[]
+  projectRoles ProjectRoles[]
+}
+
+model Project{
+  id String @id @default(uuid())
+
+  title String @db.VarChar(120)
+  thumbnail String @db.VarChar(120)
+  content String @db.MediumText
+  startDate DateTime
+  endDate DateTime
+
+  skills ProjectSkills[]
+  roles ProjectRoles[]
+}
+
+model ProjectSkills {
+  projectId String
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tagId String
+  tag Tags @relation(fields: [tagId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([projectId, tagId])
+}
+
+model ProjectRoles{
+  projectId String
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tagId String
+  tag Tags @relation(fields: [tagId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([projectId, tagId])
 }
