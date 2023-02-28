@@ -6,6 +6,24 @@ import { CreateTagDTO, TagsDTO } from './dto';
 export class TagService {
   constructor(private readonly database: PrismaService) {}
 
+  async createOrFindTag(name: string) {
+    const tag = await this.database.tags.findFirst({
+      where: {
+        name,
+      },
+    });
+
+    if (tag) return tag.id;
+
+    const newTag = await this.database.tags.create({
+      data: {
+        name,
+      },
+    });
+
+    return newTag.id;
+  }
+
   async findTag(id: string) {
     const tag = await this.database.tags.findUnique({
       where: {
@@ -19,7 +37,12 @@ export class TagService {
   }
 
   async findTags() {
-    const tags = await this.database.tags.findMany({});
+    const tags = await this.database.tags.findMany({
+      where: {
+        projectRoles: null,
+        projectSkills: null,
+      },
+    });
 
     return tags.map((tag) => new TagsDTO(tag));
   }

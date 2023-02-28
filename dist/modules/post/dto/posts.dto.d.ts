@@ -7,6 +7,7 @@ export declare class PostsDTO {
     title: string;
     thumbnail: string;
     description: string;
+    viewCount: number;
     createdAt: string;
     tags: string[];
     constructor(props: PostsDTOProps);

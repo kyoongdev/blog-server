@@ -17,6 +17,21 @@ let TagService = class TagService {
     constructor(database) {
         this.database = database;
     }
+    async createOrFindTag(name) {
+        const tag = await this.database.tags.findFirst({
+            where: {
+                name,
+            },
+        });
+        if (tag)
+            return tag.id;
+        const newTag = await this.database.tags.create({
+            data: {
+                name,
+            },
+        });
+        return newTag.id;
+    }
     async findTag(id) {
         const tag = await this.database.tags.findUnique({
             where: {
@@ -28,7 +43,12 @@ let TagService = class TagService {
         return new dto_1.TagsDTO(tag);
     }
     async findTags() {
-        const tags = await this.database.tags.findMany({});
+        const tags = await this.database.tags.findMany({
+            where: {
+                projectRoles: null,
+                projectSkills: null,
+            },
+        });
         return tags.map((tag) => new dto_1.TagsDTO(tag));
     }
     async findTagsByPost(postId) {

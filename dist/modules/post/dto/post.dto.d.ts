@@ -9,6 +9,7 @@ export declare class PostDTO {
     thumbnail: string;
     description: string;
     content: string;
+    viewCount: number;
     createdAt: string;
     updatedAt: string;
     tags: string[];

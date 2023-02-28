@@ -9,46 +9,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PostsDTO = void 0;
+exports.ProjectDTO = void 0;
 const kyoongdev_nestjs_1 = require("kyoongdev-nestjs");
-class PostsDTO {
+class ProjectDTO {
     constructor(props) {
         this.id = props.id;
         this.title = props.title;
         this.thumbnail = props.thumbnail;
-        this.description = props.description;
-        this.createdAt = `${props.createdAt}`;
-        this.tags = props.tags;
-        this.viewCount = props.viewCount ?? 0;
+        this.content = props.content;
+        this.startDate = props.startDate;
+        this.endDate = props.endDate;
+        this.skills = props.skills;
+        this.roles = props.roles;
     }
 }
 __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string' } }),
     __metadata("design:type", String)
-], PostsDTO.prototype, "id", void 0);
+], ProjectDTO.prototype, "id", void 0);
 __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string' } }),
     __metadata("design:type", String)
-], PostsDTO.prototype, "title", void 0);
+], ProjectDTO.prototype, "title", void 0);
 __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string' } }),
     __metadata("design:type", String)
-], PostsDTO.prototype, "thumbnail", void 0);
+], ProjectDTO.prototype, "thumbnail", void 0);
 __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string' } }),
     __metadata("design:type", String)
-], PostsDTO.prototype, "description", void 0);
-__decorate([
-    (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'number' } }),
-    __metadata("design:type", Number)
-], PostsDTO.prototype, "viewCount", void 0);
+], ProjectDTO.prototype, "content", void 0);
 __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', format: 'date-time' } }),
-    __metadata("design:type", String)
-], PostsDTO.prototype, "createdAt", void 0);
+    __metadata("design:type", Date)
+], ProjectDTO.prototype, "startDate", void 0);
+__decorate([
+    (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', format: 'date-time' } }),
+    __metadata("design:type", Date)
+], ProjectDTO.prototype, "endDate", void 0);
 __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', isArray: true } }),
     __metadata("design:type", Array)
-], PostsDTO.prototype, "tags", void 0);
-exports.PostsDTO = PostsDTO;
-//# sourceMappingURL=posts.dto.js.map
+], ProjectDTO.prototype, "skills", void 0);
+__decorate([
+    (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', isArray: true } }),
+    __metadata("design:type", Array)
+], ProjectDTO.prototype, "roles", void 0);
+exports.ProjectDTO = ProjectDTO;
+//# sourceMappingURL=project.dto.js.map

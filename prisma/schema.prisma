@@ -56,7 +56,7 @@ model Tags {
   name String
 
   posts PostTags[]
-  projects ProjectSkills[]
+  projectSkills ProjectSkills[]
   projectRoles ProjectRoles[]
 }
 

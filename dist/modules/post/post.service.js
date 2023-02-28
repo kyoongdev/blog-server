@@ -120,6 +120,17 @@ let PostService = class PostService {
         });
         return post.id;
     }
+    async increaseViewCount(id) {
+        const post = await this.findPost(id);
+        await this.database.post.update({
+            where: {
+                id: post.id,
+            },
+            data: {
+                viewCount: post.viewCount + 1,
+            },
+        });
+    }
     async updatePost(id, props) {
         const post = await this.findPost(id);
         let updateArgs = {

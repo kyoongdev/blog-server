@@ -11,6 +11,7 @@ export declare class PostService {
     findPost(id: string): Promise<PostDTO>;
     findPosts(paging: PagingDTO, args?: Prisma.PostFindManyArgs): Promise<PaginationDTO<PostsDTO>>;
     createPost(props: CreatePostDTO): Promise<string>;
+    increaseViewCount(id: string): Promise<void>;
     updatePost(id: string, props: UpdatePostDTO): Promise<void>;
     deletePost(id: string): Promise<void>;
 }

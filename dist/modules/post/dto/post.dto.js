@@ -22,6 +22,7 @@ class PostDTO {
         this.updatedAt = `${props.updatedAt}`;
         this.tags = props.tags;
         this.keywords = props.keywords;
+        this.viewCount = props.viewCount ?? 0;
     }
 }
 __decorate([
@@ -44,6 +45,10 @@ __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string' } }),
     __metadata("design:type", String)
 ], PostDTO.prototype, "content", void 0);
+__decorate([
+    (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'number' } }),
+    __metadata("design:type", Number)
+], PostDTO.prototype, "viewCount", void 0);
 __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', format: 'date-time' } }),
     __metadata("design:type", String)
