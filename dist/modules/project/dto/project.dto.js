@@ -17,6 +17,7 @@ class ProjectDTO {
         this.title = props.title;
         this.thumbnail = props.thumbnail;
         this.content = props.content;
+        this.link = props.link;
         this.startDate = props.startDate;
         this.endDate = props.endDate;
         this.skills = props.skills;
@@ -39,6 +40,10 @@ __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string' } }),
     __metadata("design:type", String)
 ], ProjectDTO.prototype, "content", void 0);
+__decorate([
+    (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', nullable: true } }),
+    __metadata("design:type", String)
+], ProjectDTO.prototype, "link", void 0);
 __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', format: 'date-time' } }),
     __metadata("design:type", Date)

@@ -10,6 +10,9 @@ export class UpdateProjectDTO {
   @Property({ apiProperty: { type: 'string', nullable: true } })
   content?: string;
 
+  @Property({ apiProperty: { type: 'string', nullable: true } })
+  link?: string;
+
   @Property({ apiProperty: { type: 'string', format: 'date-time' } })
   startDate?: Date;
 

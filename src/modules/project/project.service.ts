@@ -45,19 +45,14 @@ export class ProjectService {
   }
 
   async createProject(props: CreateProjectDTO) {
-    const { skills, roles } = props;
+    const { skills, roles, ...rest } = props;
 
-    const skillIds = await Promise.all(skills.map(async (skill) => await this.tagService.createOrFindTag(skill)));
-
-    const rolesIds = await Promise.all(roles.map(async (role) => await this.tagService.createOrFindTag(role)));
+    const skillIds = await Promise.all(skills.map(this.tagService.createOrFindTag));
+    const rolesIds = await Promise.all(roles.map(this.tagService.createOrFindTag));
 
     const project = await this.database.project.create({
       data: {
-        title: props.title,
-        thumbnail: props.thumbnail,
-        content: props.content,
-        startDate: props.startDate,
-        endDate: props.endDate,
+        ...rest,
         skills: {
           createMany: {
             data: skillIds.map((id) => ({ tagId: id })),
@@ -74,7 +69,7 @@ export class ProjectService {
   }
 
   async updateProject(id: string, props: UpdateProjectDTO) {
-    const { roles, skills } = props;
+    const { roles, skills, ...rest } = props;
     const project = await this.findProject(id);
 
     let updateArgs: Prisma.ProjectUpdateArgs = {
@@ -82,11 +77,7 @@ export class ProjectService {
         id: project.id,
       },
       data: {
-        title: props.title,
-        thumbnail: props.thumbnail,
-        content: props.content,
-        startDate: props.startDate,
-        endDate: props.endDate,
+        ...rest,
       },
     };
 

@@ -19,6 +19,9 @@ export class ProjectDTO {
   @Property({ apiProperty: { type: 'string' } })
   content: string;
 
+  @Property({ apiProperty: { type: 'string', nullable: true } })
+  link?: string;
+
   @Property({ apiProperty: { type: 'string', format: 'date-time' } })
   startDate: Date;
 
@@ -36,6 +39,7 @@ export class ProjectDTO {
     this.title = props.title;
     this.thumbnail = props.thumbnail;
     this.content = props.content;
+    this.link = props.link;
     this.startDate = props.startDate;
     this.endDate = props.endDate;
     this.skills = props.skills;

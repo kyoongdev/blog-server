@@ -66,6 +66,7 @@ model Project{
   title String @db.VarChar(120)
   thumbnail String @db.VarChar(120)
   content String @db.MediumText
+  link String? @db.MediumText
   startDate DateTime
   endDate DateTime
 

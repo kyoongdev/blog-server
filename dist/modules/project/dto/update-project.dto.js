@@ -26,6 +26,10 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateProjectDTO.prototype, "content", void 0);
 __decorate([
+    (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', nullable: true } }),
+    __metadata("design:type", String)
+], UpdateProjectDTO.prototype, "link", void 0);
+__decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', format: 'date-time' } }),
     __metadata("design:type", Date)
 ], UpdateProjectDTO.prototype, "startDate", void 0);

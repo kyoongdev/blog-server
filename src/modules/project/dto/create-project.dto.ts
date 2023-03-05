@@ -10,6 +10,9 @@ export class CreateProjectDTO {
   @Property({ apiProperty: { type: 'string' } })
   content: string;
 
+  @Property({ apiProperty: { type: 'string', nullable: true } })
+  link?: string;
+
   @Property({ apiProperty: { type: 'string', format: 'date-time' } })
   startDate: Date;
 
