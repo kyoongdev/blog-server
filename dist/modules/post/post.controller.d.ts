@@ -8,8 +8,8 @@ export declare class PostController {
     findAllPosts(): Promise<{
         id: string;
     }[]>;
-    findPosts(cookie: string, paging: PagingDTO, query: FindPostsQuery): Promise<import("kyoongdev-nestjs").PaginationDTO<PostsDTO>>;
-    findPost(id: string): Promise<PostDTO>;
+    findPosts(paging: PagingDTO, query: FindPostsQuery): Promise<import("kyoongdev-nestjs").PaginationDTO<PostsDTO>>;
+    findPost(id: string, cookie?: string): Promise<PostDTO>;
     increasePostViewCount(id: string): Promise<void>;
     createPost(body: CreatePostDTO): Promise<string>;
     updatePost(id: string, body: UpdatePostDTO): Promise<void>;

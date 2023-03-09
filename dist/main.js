@@ -7,6 +7,7 @@ const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const core_1 = require("@nestjs/core");
 const swagger_1 = require("@nestjs/swagger");
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const prisma_service_1 = require("./database/prisma.service");
 const express_session_1 = __importDefault(require("express-session"));
 const kyoongdev_nestjs_1 = require("kyoongdev-nestjs");
@@ -20,6 +21,7 @@ const app_module_1 = require("./app.module");
             credentials: true,
         },
     });
+    app.use((0, cookie_parser_1.default)());
     const prismaService = app.get(prisma_service_1.PrismaService);
     await prismaService.enableShutdownHooks(app);
     const configService = app.get(config_1.ConfigService);

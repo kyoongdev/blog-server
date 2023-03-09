@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import cookieParser from 'cookie-parser';
 import { PrismaService } from 'database/prisma.service';
 import session from 'express-session';
 import { PaginationMiddleware } from 'kyoongdev-nestjs';
@@ -17,6 +18,8 @@ import { AppModule } from './app.module';
       credentials: true,
     },
   });
+
+  app.use(cookieParser());
 
   const prismaService = app.get(PrismaService);
   await prismaService.enableShutdownHooks(app);

@@ -29,7 +29,7 @@ let PostController = class PostController {
     async findAllPosts() {
         return await this.postService.findAllPosts();
     }
-    async findPosts(cookie, paging, query) {
+    async findPosts(paging, query) {
         return await this.postService.findPosts(paging, {
             where: {
                 ...(query.tags && {
@@ -42,7 +42,10 @@ let PostController = class PostController {
             },
         });
     }
-    async findPost(id) {
+    async findPost(id, cookie) {
+        if (!cookie) {
+            this.increasePostViewCount(id);
+        }
         return await this.postService.findPost(id);
     }
     async increasePostViewCount(id) {
@@ -71,21 +74,20 @@ __decorate([
 ], PostController.prototype, "findAllPosts", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, common_1.UseInterceptors)(utils_1.UserCookieInterceptor),
     (0, kyoongdev_nestjs_1.RequestApi)({}),
     (0, kyoongdev_nestjs_1.ResponseApi)({
         type: dto_1.PostsDTO,
         isPaging: true,
     }),
-    __param(0, (0, decorator_1.Cookie)('f/posts/all')),
-    __param(1, (0, kyoongdev_nestjs_1.Paging)()),
-    __param(2, (0, common_1.Query)()),
+    __param(0, (0, kyoongdev_nestjs_1.Paging)()),
+    __param(1, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, kyoongdev_nestjs_1.PagingDTO, query_1.FindPostsQuery]),
+    __metadata("design:paramtypes", [kyoongdev_nestjs_1.PagingDTO, query_1.FindPostsQuery]),
     __metadata("design:returntype", Promise)
 ], PostController.prototype, "findPosts", null);
 __decorate([
     (0, common_1.Get)('/:id/detail'),
+    (0, common_1.UseInterceptors)(utils_1.UserCookieInterceptor),
     (0, kyoongdev_nestjs_1.RequestApi)({
         params: {
             name: 'id',
@@ -97,8 +99,9 @@ __decorate([
         type: dto_1.PostDTO,
     }),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, decorator_1.Cookie)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], PostController.prototype, "findPost", null);
 __decorate([

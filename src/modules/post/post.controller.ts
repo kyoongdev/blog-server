@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Response, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { EmptyResponseDTO, ResponseWithIdDTO } from 'common';
 import { Paging, PagingDTO, RequestApi, ResponseApi } from 'kyoongdev-nestjs';
@@ -24,13 +24,12 @@ export class PostController {
   }
 
   @Get()
-  @UseInterceptors(UserCookieInterceptor)
   @RequestApi({})
   @ResponseApi({
     type: PostsDTO,
     isPaging: true,
   })
-  async findPosts(@Cookie('f/posts/all') cookie: string, @Paging() paging: PagingDTO, @Query() query: FindPostsQuery) {
+  async findPosts(@Paging() paging: PagingDTO, @Query() query: FindPostsQuery) {
     return await this.postService.findPosts(paging, {
       where: {
         ...(query.tags && {
@@ -45,6 +44,7 @@ export class PostController {
   }
 
   @Get('/:id/detail')
+  @UseInterceptors(UserCookieInterceptor)
   @RequestApi({
     params: {
       name: 'id',
@@ -55,7 +55,10 @@ export class PostController {
   @ResponseApi({
     type: PostDTO,
   })
-  async findPost(@Param('id') id: string) {
+  async findPost(@Param('id') id: string, @Cookie() cookie?: string) {
+    if (!cookie) {
+      this.increasePostViewCount(id);
+    }
     return await this.postService.findPost(id);
   }
 

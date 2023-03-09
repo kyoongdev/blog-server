@@ -9,9 +9,11 @@ export class UserCookieInterceptor implements NestInterceptor {
 
     return next.handle().pipe(
       tap(() => {
-        response.cookie('f' + request.url, getClientIp(request), {
+        console.log('SetCookie', request.path);
+
+        response.cookie('f' + request.path, getClientIp(request), {
           maxAge: 1200000,
-          sameSite: 'none',
+          // sameSite: 'none',
         });
       })
     );
