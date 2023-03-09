@@ -18,7 +18,6 @@ const swagger_1 = require("@nestjs/swagger");
 const common_2 = require("../../common");
 const kyoongdev_nestjs_1 = require("kyoongdev-nestjs");
 const utils_1 = require("../../utils");
-const decorator_1 = require("../../utils/decorator");
 const dto_1 = require("./dto");
 const query_1 = require("./dto/query");
 const post_service_1 = require("./post.service");
@@ -42,10 +41,7 @@ let PostController = class PostController {
             },
         });
     }
-    async findPost(id, cookie) {
-        if (!cookie) {
-            this.increasePostViewCount(id);
-        }
+    async findPost(id) {
         return await this.postService.findPost(id);
     }
     async increasePostViewCount(id) {
@@ -87,7 +83,6 @@ __decorate([
 ], PostController.prototype, "findPosts", null);
 __decorate([
     (0, common_1.Get)('/:id/detail'),
-    (0, common_1.UseInterceptors)(utils_1.UserCookieInterceptor),
     (0, kyoongdev_nestjs_1.RequestApi)({
         params: {
             name: 'id',
@@ -99,9 +94,8 @@ __decorate([
         type: dto_1.PostDTO,
     }),
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, decorator_1.Cookie)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], PostController.prototype, "findPost", null);
 __decorate([

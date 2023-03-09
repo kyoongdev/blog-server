@@ -1,2 +1,2 @@
-import { PostModule } from './post/post.module';
-export declare const Modules: (typeof PostModule)[];
+import { GlobalModule } from './global';
+export declare const Modules: (typeof GlobalModule)[];
