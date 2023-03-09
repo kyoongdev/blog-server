@@ -18,6 +18,7 @@ const swagger_1 = require("@nestjs/swagger");
 const common_2 = require("../../common");
 const kyoongdev_nestjs_1 = require("kyoongdev-nestjs");
 const utils_1 = require("../../utils");
+const decorator_1 = require("../../utils/decorator");
 const dto_1 = require("./dto");
 const query_1 = require("./dto/query");
 const post_service_1 = require("./post.service");
@@ -28,7 +29,7 @@ let PostController = class PostController {
     async findAllPosts() {
         return await this.postService.findAllPosts();
     }
-    async findPosts(paging, query) {
+    async findPosts(cookie, paging, query) {
         return await this.postService.findPosts(paging, {
             where: {
                 ...(query.tags && {
@@ -70,15 +71,17 @@ __decorate([
 ], PostController.prototype, "findAllPosts", null);
 __decorate([
     (0, common_1.Get)(),
+    (0, common_1.UseInterceptors)(utils_1.UserCookieInterceptor),
     (0, kyoongdev_nestjs_1.RequestApi)({}),
     (0, kyoongdev_nestjs_1.ResponseApi)({
         type: dto_1.PostsDTO,
         isPaging: true,
     }),
-    __param(0, (0, kyoongdev_nestjs_1.Paging)()),
-    __param(1, (0, common_1.Query)()),
+    __param(0, (0, decorator_1.Cookie)('f/posts/all')),
+    __param(1, (0, kyoongdev_nestjs_1.Paging)()),
+    __param(2, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [kyoongdev_nestjs_1.PagingDTO, query_1.FindPostsQuery]),
+    __metadata("design:paramtypes", [String, kyoongdev_nestjs_1.PagingDTO, query_1.FindPostsQuery]),
     __metadata("design:returntype", Promise)
 ], PostController.prototype, "findPosts", null);
 __decorate([

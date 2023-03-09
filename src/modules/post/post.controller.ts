@@ -2,7 +2,9 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseIntercepto
 import { ApiTags } from '@nestjs/swagger';
 import { EmptyResponseDTO, ResponseWithIdDTO } from 'common';
 import { Paging, PagingDTO, RequestApi, ResponseApi } from 'kyoongdev-nestjs';
-import { ResponseWithIdInterceptor } from 'utils';
+import { ResponseWithIdInterceptor, UserCookieInterceptor } from 'utils';
+import { Cookie } from 'utils/decorator';
+
 import { CreatePostDTO, PostDTO, PostsDTO, UpdatePostDTO } from './dto';
 import { FindPostsQuery } from './dto/query';
 import { PostService } from './post.service';
@@ -22,12 +24,13 @@ export class PostController {
   }
 
   @Get()
+  @UseInterceptors(UserCookieInterceptor)
   @RequestApi({})
   @ResponseApi({
     type: PostsDTO,
     isPaging: true,
   })
-  async findPosts(@Paging() paging: PagingDTO, @Query() query: FindPostsQuery) {
+  async findPosts(@Cookie('f/posts/all') cookie: string, @Paging() paging: PagingDTO, @Query() query: FindPostsQuery) {
     return await this.postService.findPosts(paging, {
       where: {
         ...(query.tags && {

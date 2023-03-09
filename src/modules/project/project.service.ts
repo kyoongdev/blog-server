@@ -47,8 +47,8 @@ export class ProjectService {
   async createProject(props: CreateProjectDTO) {
     const { skills, roles, ...rest } = props;
 
-    const skillIds = await Promise.all(skills.map(this.tagService.createOrFindTag));
-    const rolesIds = await Promise.all(roles.map(this.tagService.createOrFindTag));
+    const skillIds = await Promise.all(skills.map((skill) => this.tagService.createOrFindTag(skill)));
+    const rolesIds = await Promise.all(roles.map((role) => this.tagService.createOrFindTag(role)));
 
     const project = await this.database.project.create({
       data: {
@@ -82,7 +82,7 @@ export class ProjectService {
     };
 
     if (roles) {
-      const rolesIds = await Promise.all(roles.map(async (role) => await this.tagService.createOrFindTag(role)));
+      const rolesIds = await Promise.all(roles.map((role) => this.tagService.createOrFindTag(role)));
 
       updateArgs = {
         where: updateArgs.where,
@@ -99,7 +99,7 @@ export class ProjectService {
     }
 
     if (skills) {
-      const skillIds = await Promise.all(skills.map(async (skill) => await this.tagService.createOrFindTag(skill)));
+      const skillIds = await Promise.all(skills.map((skill) => this.tagService.createOrFindTag(skill)));
 
       updateArgs = {
         where: updateArgs.where,

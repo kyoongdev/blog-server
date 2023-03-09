@@ -1,2 +1,2 @@
-import { TagModule } from './tag/tag.module';
-export declare const Modules: (typeof TagModule)[];
+import { PostModule } from './post/post.module';
+export declare const Modules: (typeof PostModule)[];

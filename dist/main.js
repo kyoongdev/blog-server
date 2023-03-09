@@ -17,6 +17,7 @@ const app_module_1 = require("./app.module");
         logger: log_1.winstonLogger,
         cors: {
             origin: '*',
+            credentials: true,
         },
     });
     const prismaService = app.get(prisma_service_1.PrismaService);

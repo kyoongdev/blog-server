@@ -14,6 +14,7 @@ import { AppModule } from './app.module';
     logger: winstonLogger,
     cors: {
       origin: '*',
+      credentials: true,
     },
   });
 

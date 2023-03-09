@@ -10,6 +10,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User{
+  id String @id @default(uuid())
+  userId String  @db.VarChar(120) @unique
+  password String @db.VarChar(250)
+  name String @db.VarChar(120)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Post{
   id String @id @default(uuid())
   title String @db.VarChar(120)
@@ -25,6 +34,8 @@ model Post{
   tags PostTags[]
   keywords PostKeywords[]
 }
+
+
 
 model PostKeywords{
   postId String

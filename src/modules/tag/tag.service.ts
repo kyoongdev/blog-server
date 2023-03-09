@@ -6,24 +6,6 @@ import { CreateTagDTO, TagsDTO } from './dto';
 export class TagService {
   constructor(private readonly database: PrismaService) {}
 
-  async createOrFindTag(name: string) {
-    const tag = await this.database.tags.findFirst({
-      where: {
-        name,
-      },
-    });
-
-    if (tag) return tag.id;
-
-    const newTag = await this.database.tags.create({
-      data: {
-        name,
-      },
-    });
-
-    return newTag.id;
-  }
-
   async findTag(id: string) {
     const tag = await this.database.tags.findUnique({
       where: {
@@ -83,5 +65,23 @@ export class TagService {
         id: tag.id,
       },
     });
+  }
+
+  async createOrFindTag(name: string) {
+    const tag = await this.database.tags.findFirst({
+      where: {
+        name,
+      },
+    });
+
+    if (tag) return tag.id;
+
+    const newTag = await this.database.tags.create({
+      data: {
+        name,
+      },
+    });
+
+    return newTag.id;
   }
 }
