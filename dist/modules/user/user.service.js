@@ -44,10 +44,35 @@ let UserService = class UserService {
             },
         });
         this.exception.userNotFound(user);
+        return new dto_1.UserDetailDTO(user);
     }
-    async createUser(props) { }
-    async updateUser(id, props) { }
-    async deleteUser(id) { }
+    async createUser(props) {
+        const user = await this.database.user.create({
+            data: {
+                ...props,
+            },
+        });
+        return user.id;
+    }
+    async updateUser(id, props) {
+        const user = await this.findUser(id);
+        await this.database.user.update({
+            where: {
+                id: user.id,
+            },
+            data: {
+                ...props,
+            },
+        });
+    }
+    async deleteUser(id) {
+        const user = await this.findUser(id);
+        await this.database.user.delete({
+            where: {
+                id: user.id,
+            },
+        });
+    }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),

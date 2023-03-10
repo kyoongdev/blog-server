@@ -7,8 +7,8 @@ export declare class UserService {
     constructor(database: PrismaService, exception: UserException);
     findUser(id: string): Promise<UserDetailDTO>;
     findUserByUserId(userId: string): Promise<UserDetailDTO>;
-    findUserBySocialId(socialId: string): Promise<void>;
-    createUser(props: CreateUserDTO): Promise<void>;
+    findUserBySocialId(socialId: string): Promise<UserDetailDTO>;
+    createUser(props: CreateUserDTO): Promise<string>;
     updateUser(id: string, props: UpdateUserDTO): Promise<void>;
     deleteUser(id: string): Promise<void>;
 }

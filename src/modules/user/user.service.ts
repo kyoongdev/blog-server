@@ -38,11 +38,39 @@ export class UserService {
     });
 
     this.exception.userNotFound(user);
+    return new UserDetailDTO(user);
   }
 
-  async createUser(props: CreateUserDTO) {}
+  async createUser(props: CreateUserDTO) {
+    const user = await this.database.user.create({
+      data: {
+        ...props,
+      },
+    });
 
-  async updateUser(id: string, props: UpdateUserDTO) {}
+    return user.id;
+  }
 
-  async deleteUser(id: string) {}
+  async updateUser(id: string, props: UpdateUserDTO) {
+    const user = await this.findUser(id);
+
+    await this.database.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        ...props,
+      },
+    });
+  }
+
+  async deleteUser(id: string) {
+    const user = await this.findUser(id);
+
+    await this.database.user.delete({
+      where: {
+        id: user.id,
+      },
+    });
+  }
 }
