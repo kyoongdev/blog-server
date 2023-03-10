@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import type { Prisma } from '@prisma/client';
 import { PrismaService } from 'database/prisma.service';
 import { PaginationDTO, PagingDTO } from 'kyoongdev-nestjs';
@@ -14,7 +14,7 @@ export class PostService {
   }
 
   async findPost(id: string) {
-    const { tags, keywords, ...rest } = await this.database.post.findUnique({
+    const post = await this.database.post.findUnique({
       where: {
         id,
       },
@@ -39,6 +39,11 @@ export class PostService {
         },
       },
     });
+
+    if (!post) {
+      throw new NotFoundException('포스트를 찾을 수 없습니다.');
+    }
+    const { tags, keywords, ...rest } = post;
 
     return new PostDTO({
       ...rest,

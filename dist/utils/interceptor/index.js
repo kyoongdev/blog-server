@@ -15,9 +15,8 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Interceptors = void 0;
-const error_interceptor_1 = require("./error.interceptor");
 __exportStar(require("./data.interceptor"), exports);
 __exportStar(require("./response-with-id.interceptor"), exports);
 __exportStar(require("./user-cookie.interceptor"), exports);
-exports.Interceptors = [error_interceptor_1.ErrorsInterceptor];
+exports.Interceptors = [];
 //# sourceMappingURL=index.js.map

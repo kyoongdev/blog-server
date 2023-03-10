@@ -23,7 +23,7 @@ let PostService = class PostService {
         return posts.map((post) => ({ id: post.id }));
     }
     async findPost(id) {
-        const { tags, keywords, ...rest } = await this.database.post.findUnique({
+        const post = await this.database.post.findUnique({
             where: {
                 id,
             },
@@ -48,6 +48,10 @@ let PostService = class PostService {
                 },
             },
         });
+        if (!post) {
+            throw new common_1.NotFoundException('포스트를 찾을 수 없습니다.');
+        }
+        const { tags, keywords, ...rest } = post;
         return new dto_1.PostDTO({
             ...rest,
             tags: tags.map(({ tag }) => tag.name),

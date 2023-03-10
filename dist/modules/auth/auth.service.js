@@ -16,8 +16,12 @@ let AuthService = class AuthService {
     constructor(database) {
         this.database = database;
     }
-    async login() { }
-    async register() { }
+    async login(props) {
+        const { userId, password } = props;
+    }
+    async register(props) {
+        const { name, password, userId } = props;
+    }
 };
 AuthService = __decorate([
     (0, common_1.Injectable)(),

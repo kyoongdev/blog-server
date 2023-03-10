@@ -17,5 +17,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./login.dto"), exports);
 __exportStar(require("./register.dto"), exports);
 __exportStar(require("./token.dto"), exports);
-__exportStar(require("./social.dto"), exports);
 //# sourceMappingURL=index.js.map
