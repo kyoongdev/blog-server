@@ -16,8 +16,8 @@ class UserDTO {
         this.id = props.id;
         this.userId = props.userId;
         this.name = props.name;
-        this.createdAt = props.createdAt?.toISOString();
-        this.updatedAt = props.updatedAt?.toISOString();
+        this.createdAt = props.createdAt;
+        this.updatedAt = props.updatedAt;
     }
 }
 __decorate([
@@ -34,11 +34,11 @@ __decorate([
 ], UserDTO.prototype, "name", void 0);
 __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', format: 'date-time', nullable: true } }),
-    __metadata("design:type", String)
+    __metadata("design:type", Date)
 ], UserDTO.prototype, "createdAt", void 0);
 __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', format: 'date-time', nullable: true } }),
-    __metadata("design:type", String)
+    __metadata("design:type", Date)
 ], UserDTO.prototype, "updatedAt", void 0);
 exports.UserDTO = UserDTO;
 //# sourceMappingURL=user.dto.js.map

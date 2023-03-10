@@ -22,8 +22,8 @@ class UserDetailDTO {
         this.name = props.name;
         this.socialId = props.socialId;
         this.password = props.password;
-        this.createdAt = props.createdAt?.toISOString();
-        this.updatedAt = props.updatedAt?.toISOString();
+        this.createdAt = props.createdAt;
+        this.updatedAt = props.updatedAt;
     }
     async comparePassword(password) {
         return await bcrypt_1.default.compare(password, this.password);
@@ -51,11 +51,11 @@ __decorate([
 ], UserDetailDTO.prototype, "socialId", void 0);
 __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', format: 'date-time', nullable: true } }),
-    __metadata("design:type", String)
+    __metadata("design:type", Date)
 ], UserDetailDTO.prototype, "createdAt", void 0);
 __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', format: 'date-time', nullable: true } }),
-    __metadata("design:type", String)
+    __metadata("design:type", Date)
 ], UserDetailDTO.prototype, "updatedAt", void 0);
 exports.UserDetailDTO = UserDetailDTO;
 //# sourceMappingURL=user-detail.dto.js.map

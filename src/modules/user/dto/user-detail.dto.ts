@@ -18,10 +18,10 @@ export class UserDetailDTO {
   socialId?: string;
 
   @Property({ apiProperty: { type: 'string', format: 'date-time', nullable: true } })
-  createdAt?: string;
+  createdAt?: Date;
 
   @Property({ apiProperty: { type: 'string', format: 'date-time', nullable: true } })
-  updatedAt?: string;
+  updatedAt?: Date;
 
   constructor(props: Partial<User>) {
     this.id = props.id;
@@ -29,8 +29,8 @@ export class UserDetailDTO {
     this.name = props.name;
     this.socialId = props.socialId;
     this.password = props.password;
-    this.createdAt = props.createdAt?.toISOString();
-    this.updatedAt = props.updatedAt?.toISOString();
+    this.createdAt = props.createdAt;
+    this.updatedAt = props.updatedAt;
   }
 
   async comparePassword(password: string) {

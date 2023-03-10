@@ -12,12 +12,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../../database/prisma.service");
+const kyoongdev_nestjs_1 = require("kyoongdev-nestjs");
 const dto_1 = require("./dto");
 const user_exception_1 = require("./user.exception");
 let UserService = class UserService {
     constructor(database, exception) {
         this.database = database;
         this.exception = exception;
+    }
+    async findUsers(paging, args = {}) {
+        const { take, skip } = paging.getSkipTake();
+        const count = await this.database.user.count({
+            where: args.where,
+        });
+        const users = await this.database.user.findMany({
+            ...args,
+            skip,
+            take,
+            orderBy: {
+                createdAt: 'desc',
+            },
+        });
+        return new kyoongdev_nestjs_1.PaginationDTO(users, { count, paging });
     }
     async findUser(id) {
         const user = await this.database.user.findUnique({

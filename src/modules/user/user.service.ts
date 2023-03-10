@@ -1,11 +1,31 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'database/prisma.service';
+import { PaginationDTO, PagingDTO } from 'kyoongdev-nestjs';
 import { CreateUserDTO, UpdateUserDTO, UserDetailDTO } from './dto';
 import { UserException } from './user.exception';
 
 @Injectable()
 export class UserService {
   constructor(private readonly database: PrismaService, private readonly exception: UserException) {}
+
+  async findUsers(paging: PagingDTO, args = {} as Prisma.UserFindManyArgs) {
+    const { take, skip } = paging.getSkipTake();
+    const count = await this.database.user.count({
+      where: args.where,
+    });
+
+    const users = await this.database.user.findMany({
+      ...args,
+      skip,
+      take,
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return new PaginationDTO(users, { count, paging });
+  }
 
   async findUser(id: string) {
     const user = await this.database.user.findUnique({

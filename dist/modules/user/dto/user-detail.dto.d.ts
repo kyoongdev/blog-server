@@ -5,8 +5,8 @@ export declare class UserDetailDTO {
     name?: string;
     password?: string;
     socialId?: string;
-    createdAt?: string;
-    updatedAt?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
     constructor(props: Partial<User>);
     comparePassword(password: string): Promise<boolean>;
 }
