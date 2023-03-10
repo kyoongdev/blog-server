@@ -7,5 +7,6 @@ const global_1 = require("./global");
 const post_module_1 = require("./post/post.module");
 const project_module_1 = require("./project/project.module");
 const tag_module_1 = require("./tag/tag.module");
-exports.Modules = [global_1.GlobalModule, post_module_1.PostModule, tag_module_1.TagModule, file_module_1.FileModule, project_module_1.ProjectModule, auth_module_1.AuthModule];
+const user_module_1 = require("./user/user.module");
+exports.Modules = [global_1.GlobalModule, post_module_1.PostModule, tag_module_1.TagModule, file_module_1.FileModule, project_module_1.ProjectModule, auth_module_1.AuthModule, user_module_1.UserModule];
 //# sourceMappingURL=index.js.map
