@@ -3,11 +3,13 @@ import { ApiTags } from '@nestjs/swagger';
 import { EmptyResponseDTO, ResponseWithIdDTO } from 'common';
 import { Paging, PagingDTO, RequestApi, ResponseApi } from 'kyoongdev-nestjs';
 import { ResponseWithIdInterceptor } from 'utils';
+import { ResponseWithId, ResponseWithIdController } from 'utils/decorator';
 import { CreateUserDTO, UpdateUserDTO, UserDTO } from './dto';
 import { UserService } from './user.service';
 
 @ApiTags('유저')
 @Controller('users')
+@ResponseWithIdController
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -28,6 +30,7 @@ export class UserController {
   }
 
   @Get()
+  @ResponseWithId
   @RequestApi({
     query: {
       type: PagingDTO,
@@ -42,7 +45,6 @@ export class UserController {
   }
 
   @Post()
-  @UseInterceptors(ResponseWithIdInterceptor)
   @RequestApi({
     body: {
       type: CreateUserDTO,

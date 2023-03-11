@@ -8,7 +8,6 @@ class UserCookieInterceptor {
         const request = context.switchToHttp().getRequest();
         const response = context.switchToHttp().getResponse();
         return next.handle().pipe((0, rxjs_1.tap)(() => {
-            console.log('SetCookie', request.path);
             response.cookie('f' + request.path, (0, request_ip_1.getClientIp)(request), {
                 maxAge: 1200000,
             });

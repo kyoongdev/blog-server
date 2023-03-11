@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const common_2 = require("../../common");
 const kyoongdev_nestjs_1 = require("kyoongdev-nestjs");
-const utils_1 = require("../../utils");
+const decorator_1 = require("../../utils/decorator");
 const dto_1 = require("./dto");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
@@ -60,6 +60,7 @@ __decorate([
 ], UserController.prototype, "findUser", null);
 __decorate([
     (0, common_1.Get)(),
+    decorator_1.ResponseWithId,
     (0, kyoongdev_nestjs_1.RequestApi)({
         query: {
             type: kyoongdev_nestjs_1.PagingDTO,
@@ -76,7 +77,6 @@ __decorate([
 ], UserController.prototype, "findUsers", null);
 __decorate([
     (0, common_1.Post)(),
-    (0, common_1.UseInterceptors)(utils_1.ResponseWithIdInterceptor),
     (0, kyoongdev_nestjs_1.RequestApi)({
         body: {
             type: dto_1.CreateUserDTO,
@@ -131,6 +131,7 @@ __decorate([
 UserController = __decorate([
     (0, swagger_1.ApiTags)('유저'),
     (0, common_1.Controller)('users'),
+    decorator_1.ResponseWithIdController,
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], UserController);
 exports.UserController = UserController;

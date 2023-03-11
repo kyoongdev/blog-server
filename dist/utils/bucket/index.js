@@ -55,7 +55,6 @@ let BucketService = class BucketService {
         return new Promise((resolve) => {
             this.s3Object.upload(props, (err, data) => {
                 if (err) {
-                    console.log(err);
                     resolve(null);
                 }
                 if (data) {
