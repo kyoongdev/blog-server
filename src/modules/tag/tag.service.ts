@@ -21,11 +21,8 @@ export class TagService {
   async findTags() {
     const tags = await this.database.tags.findMany({
       where: {
-        projectRoles: {
-          none: {},
-        },
-        projectSkills: {
-          none: {},
+        posts: {
+          some: {},
         },
       },
     });
