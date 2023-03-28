@@ -30,9 +30,18 @@ let TagService = class TagService {
     async findTags() {
         const tags = await this.database.tags.findMany({
             where: {
-                posts: {
-                    some: {},
-                },
+                NOT: [
+                    {
+                        projectRoles: {
+                            some: {},
+                        },
+                    },
+                    {
+                        projectSkills: {
+                            some: {},
+                        },
+                    },
+                ],
             },
         });
         return tags.map((tag) => new dto_1.TagsDTO(tag));
