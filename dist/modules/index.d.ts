@@ -1,2 +1,2 @@
-import { TagModule } from './tag/tag.module';
-export declare const Modules: (typeof TagModule)[];
+import { FileModule } from './file/file.module';
+export declare const Modules: (typeof FileModule)[];

@@ -18,6 +18,8 @@ const swagger_1 = require("@nestjs/swagger");
 const common_2 = require("../../common");
 const kyoongdev_nestjs_1 = require("kyoongdev-nestjs");
 const utils_1 = require("../../utils");
+const guards_1 = require("../../utils/guards");
+const role_interceptor_1 = require("../../utils/interceptor/role.interceptor");
 const dto_1 = require("./dto");
 const project_service_1 = require("./project.service");
 let ProjectController = class ProjectController {
@@ -50,7 +52,8 @@ __decorate([
 ], ProjectController.prototype, "getProjects", null);
 __decorate([
     (0, common_1.Post)(),
-    (0, common_1.UseInterceptors)(utils_1.ResponseWithIdInterceptor),
+    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
+    (0, common_1.UseInterceptors)(utils_1.ResponseWithIdInterceptor, (0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.ADMIN)),
     (0, kyoongdev_nestjs_1.RequestApi)({
         body: {
             type: dto_1.CreateProjectDTO,
@@ -66,6 +69,8 @@ __decorate([
 ], ProjectController.prototype, "createProject", null);
 __decorate([
     (0, common_1.Patch)('/:id'),
+    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.ADMIN)),
     (0, kyoongdev_nestjs_1.RequestApi)({
         params: {
             name: 'id',
@@ -87,6 +92,8 @@ __decorate([
 ], ProjectController.prototype, "updateProject", null);
 __decorate([
     (0, common_1.Delete)('/:id'),
+    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.ADMIN)),
     (0, kyoongdev_nestjs_1.RequestApi)({
         params: {
             name: 'id',

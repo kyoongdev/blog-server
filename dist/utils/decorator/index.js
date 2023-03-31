@@ -17,4 +17,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./cookie"), exports);
 __exportStar(require("./response-with-id"), exports);
 __exportStar(require("./response-with-id.register"), exports);
+__exportStar(require("./user.decorators"), exports);
 //# sourceMappingURL=index.js.map

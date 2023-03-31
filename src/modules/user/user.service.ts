@@ -50,15 +50,14 @@ export class UserService {
     return new UserDetailDTO(user);
   }
 
-  async findUserBySocialId(socialId: string) {
+  async checkUserByUserId(userId: string) {
     const user = await this.database.user.findUnique({
       where: {
-        socialId,
+        userId,
       },
     });
 
-    this.exception.userNotFound(user);
-    return new UserDetailDTO(user);
+    return user;
   }
 
   async createUser(props: CreateUserDTO) {

@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { User, UserType } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { Property } from 'kyoongdev-nestjs';
 export class UserDetailDTO {
@@ -14,8 +14,8 @@ export class UserDetailDTO {
   @Property({ apiProperty: { type: 'string', nullable: true } })
   password?: string;
 
-  @Property({ apiProperty: { type: 'string', nullable: true } })
-  socialId?: string;
+  @Property({ apiProperty: { type: 'string', enum: Object.keys(UserType) } })
+  userType: UserType;
 
   @Property({ apiProperty: { type: 'string', format: 'date-time', nullable: true } })
   createdAt?: Date;
@@ -27,7 +27,7 @@ export class UserDetailDTO {
     this.id = props.id;
     this.userId = props.userId;
     this.name = props.name;
-    this.socialId = props.socialId;
+    this.userType = props.userType;
     this.password = props.password;
     this.createdAt = props.createdAt;
     this.updatedAt = props.updatedAt;

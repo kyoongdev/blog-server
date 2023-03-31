@@ -10,12 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserDTO = void 0;
+const client_1 = require("@prisma/client");
 const kyoongdev_nestjs_1 = require("kyoongdev-nestjs");
 class UserDTO {
     constructor(props) {
         this.id = props.id;
         this.userId = props.userId;
         this.name = props.name;
+        this.userType = props.userType;
         this.createdAt = props.createdAt;
         this.updatedAt = props.updatedAt;
     }
@@ -32,6 +34,10 @@ __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', nullable: true } }),
     __metadata("design:type", String)
 ], UserDTO.prototype, "name", void 0);
+__decorate([
+    (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', enum: Object.keys(client_1.UserType) } }),
+    __metadata("design:type", String)
+], UserDTO.prototype, "userType", void 0);
 __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', format: 'date-time', nullable: true } }),
     __metadata("design:type", Date)

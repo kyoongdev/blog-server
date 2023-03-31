@@ -1,7 +1,9 @@
 import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
-import { RequestApi, ResponseApi } from 'kyoongdev-nestjs';
+import { Auth, RequestApi, ResponseApi } from 'kyoongdev-nestjs';
+import { JwtAuthGuard } from 'utils/guards';
+import { Role, RoleInterceptorAPI } from 'utils/interceptor/role.interceptor';
 import { UploadedFileDTO } from './dto';
 import { FileService } from './file.service';
 
@@ -12,7 +14,8 @@ export class FileController {
 
   @Post('/image')
   @ApiConsumes('multipart/form-data')
-  @UseInterceptors(FileInterceptor('image', { limits: { fileSize: 1024 * 1024 * 10 } }))
+  @Auth(JwtAuthGuard)
+  @UseInterceptors(RoleInterceptorAPI(Role.ADMIN), FileInterceptor('image', { limits: { fileSize: 1024 * 1024 * 10 } }))
   @RequestApi({
     body: {
       schema: {

@@ -17,6 +17,8 @@ const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const swagger_1 = require("@nestjs/swagger");
 const kyoongdev_nestjs_1 = require("kyoongdev-nestjs");
+const guards_1 = require("../../utils/guards");
+const role_interceptor_1 = require("../../utils/interceptor/role.interceptor");
 const dto_1 = require("./dto");
 const file_service_1 = require("./file.service");
 let FileController = class FileController {
@@ -30,7 +32,8 @@ let FileController = class FileController {
 __decorate([
     (0, common_1.Post)('/image'),
     (0, swagger_1.ApiConsumes)('multipart/form-data'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image', { limits: { fileSize: 1024 * 1024 * 10 } })),
+    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.ADMIN), (0, platform_express_1.FileInterceptor)('image', { limits: { fileSize: 1024 * 1024 * 10 } })),
     (0, kyoongdev_nestjs_1.RequestApi)({
         body: {
             schema: {

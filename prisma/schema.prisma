@@ -15,7 +15,7 @@ model User{
   userId String?  @db.VarChar(120) @unique
   password String? @db.VarChar(250)
   name String? @db.VarChar(120)
-  socialId String? @db.VarChar(120) @unique
+  userType UserType? @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -118,4 +118,9 @@ model ProjectRoles{
   tag Tags @relation(fields: [tagId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@id([projectId, tagId])
+}
+
+enum UserType {
+  ADMIN
+  USER
 }

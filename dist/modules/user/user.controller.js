@@ -18,11 +18,16 @@ const swagger_1 = require("@nestjs/swagger");
 const common_2 = require("../../common");
 const kyoongdev_nestjs_1 = require("kyoongdev-nestjs");
 const decorator_1 = require("../../utils/decorator");
+const guards_1 = require("../../utils/guards");
+const role_interceptor_1 = require("../../utils/interceptor/role.interceptor");
 const dto_1 = require("./dto");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
+    }
+    async getMe(user) {
+        return new dto_1.UserDTO(await this.userService.findUser(user.id));
     }
     async findUser(id) {
         const user = await this.userService.findUser(id);
@@ -37,12 +42,30 @@ let UserController = class UserController {
     async updateUser(id, body) {
         await this.userService.updateUser(id, body);
     }
+    async updateMyInfo(user, body) {
+        await this.userService.updateUser(user.id, body);
+    }
     async deleteUser(id) {
         await this.userService.deleteUser(id);
     }
 };
 __decorate([
-    (0, common_1.Get)(':id'),
+    (0, common_1.Get)('me'),
+    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.USER)),
+    (0, kyoongdev_nestjs_1.RequestApi)({}),
+    (0, kyoongdev_nestjs_1.ResponseApi)({
+        type: dto_1.UserDTO,
+    }),
+    __param(0, (0, decorator_1.ReqUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getMe", null);
+__decorate([
+    (0, common_1.Get)(':id/detail'),
+    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.ADMIN)),
     (0, kyoongdev_nestjs_1.RequestApi)({
         params: {
             name: 'id',
@@ -60,6 +83,8 @@ __decorate([
 ], UserController.prototype, "findUser", null);
 __decorate([
     (0, common_1.Get)(),
+    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.ADMIN)),
     decorator_1.ResponseWithId,
     (0, kyoongdev_nestjs_1.RequestApi)({
         query: {
@@ -77,6 +102,8 @@ __decorate([
 ], UserController.prototype, "findUsers", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.ADMIN)),
     (0, kyoongdev_nestjs_1.RequestApi)({
         body: {
             type: dto_1.CreateUserDTO,
@@ -92,6 +119,8 @@ __decorate([
 ], UserController.prototype, "createUser", null);
 __decorate([
     (0, common_1.Patch)(':id'),
+    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.ADMIN)),
     (0, kyoongdev_nestjs_1.RequestApi)({
         params: {
             name: 'id',
@@ -112,7 +141,27 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateUser", null);
 __decorate([
+    (0, common_1.Patch)(),
+    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.USER)),
+    (0, kyoongdev_nestjs_1.RequestApi)({
+        body: {
+            type: dto_1.UpdateUserDTO,
+        },
+    }),
+    (0, kyoongdev_nestjs_1.ResponseApi)({
+        type: common_2.EmptyResponseDTO,
+    }),
+    __param(0, (0, decorator_1.ReqUser)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, dto_1.UpdateUserDTO]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "updateMyInfo", null);
+__decorate([
     (0, common_1.Delete)(':id'),
+    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.ADMIN)),
     (0, kyoongdev_nestjs_1.RequestApi)({
         params: {
             name: 'id',

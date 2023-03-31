@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { User, UserType } from '@prisma/client';
 import { Property } from 'kyoongdev-nestjs';
 
 export class UserDTO {
@@ -11,6 +11,9 @@ export class UserDTO {
   @Property({ apiProperty: { type: 'string', nullable: true } })
   name?: string;
 
+  @Property({ apiProperty: { type: 'string', enum: Object.keys(UserType) } })
+  userType: UserType;
+
   @Property({ apiProperty: { type: 'string', format: 'date-time', nullable: true } })
   createdAt?: Date;
 
@@ -21,6 +24,7 @@ export class UserDTO {
     this.id = props.id;
     this.userId = props.userId;
     this.name = props.name;
+    this.userType = props.userType;
     this.createdAt = props.createdAt;
     this.updatedAt = props.updatedAt;
   }

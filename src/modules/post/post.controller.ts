@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { EmptyResponseDTO, ResponseWithIdDTO } from 'common';
-import { Paging, PagingDTO, RequestApi, ResponseApi } from 'kyoongdev-nestjs';
+import { Auth, Paging, PagingDTO, RequestApi, ResponseApi } from 'kyoongdev-nestjs';
 import { ResponseWithIdInterceptor } from 'utils';
+import { JwtAuthGuard } from 'utils/guards';
+import { Role, RoleInterceptorAPI } from 'utils/interceptor/role.interceptor';
 import { CreatePostDTO, PostDTO, PostsDTO, UpdatePostDTO } from './dto';
 import { FindPostsQuery } from './dto/query';
 import { PostService } from './post.service';
@@ -57,7 +59,8 @@ export class PostController {
   }
 
   @Post('/:id/viewCount')
-  @UseInterceptors(ResponseWithIdInterceptor)
+  @Auth(JwtAuthGuard)
+  @UseInterceptors(RoleInterceptorAPI(Role.ADMIN), ResponseWithIdInterceptor)
   @RequestApi({
     params: {
       name: 'id',
@@ -76,7 +79,8 @@ export class PostController {
   }
 
   @Post()
-  @UseInterceptors(ResponseWithIdInterceptor)
+  @Auth(JwtAuthGuard)
+  @UseInterceptors(RoleInterceptorAPI(Role.ADMIN), ResponseWithIdInterceptor)
   @RequestApi({
     body: {
       type: CreatePostDTO,
@@ -93,6 +97,8 @@ export class PostController {
   }
 
   @Patch('/:id')
+  @Auth(JwtAuthGuard)
+  @UseInterceptors(RoleInterceptorAPI(Role.ADMIN))
   @RequestApi({
     params: {
       name: 'id',
@@ -114,6 +120,8 @@ export class PostController {
   }
 
   @Delete('/:id')
+  @Auth(JwtAuthGuard)
+  @UseInterceptors(RoleInterceptorAPI(Role.ADMIN))
   @RequestApi({
     params: {
       name: 'id',

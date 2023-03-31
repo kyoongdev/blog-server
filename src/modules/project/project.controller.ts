@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { EmptyResponseDTO, ResponseWithIdDTO } from 'common';
-import { RequestApi, ResponseApi } from 'kyoongdev-nestjs';
+import { Auth, RequestApi, ResponseApi } from 'kyoongdev-nestjs';
 import { ResponseWithIdInterceptor } from 'utils';
+import { JwtAuthGuard } from 'utils/guards';
+import { Role, RoleInterceptorAPI } from 'utils/interceptor/role.interceptor';
 import { CreateProjectDTO, ProjectDTO, UpdateProjectDTO } from './dto';
 import { ProjectService } from './project.service';
 
@@ -22,7 +24,8 @@ export class ProjectController {
   }
 
   @Post()
-  @UseInterceptors(ResponseWithIdInterceptor)
+  @Auth(JwtAuthGuard)
+  @UseInterceptors(ResponseWithIdInterceptor, RoleInterceptorAPI(Role.ADMIN))
   @RequestApi({
     body: {
       type: CreateProjectDTO,
@@ -36,6 +39,8 @@ export class ProjectController {
   }
 
   @Patch('/:id')
+  @Auth(JwtAuthGuard)
+  @UseInterceptors(RoleInterceptorAPI(Role.ADMIN))
   @RequestApi({
     params: {
       name: 'id',
@@ -54,6 +59,8 @@ export class ProjectController {
   }
 
   @Delete('/:id')
+  @Auth(JwtAuthGuard)
+  @UseInterceptors(RoleInterceptorAPI(Role.ADMIN))
   @RequestApi({
     params: {
       name: 'id',

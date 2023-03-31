@@ -18,6 +18,8 @@ const swagger_1 = require("@nestjs/swagger");
 const common_2 = require("../../common");
 const kyoongdev_nestjs_1 = require("kyoongdev-nestjs");
 const utils_1 = require("../../utils");
+const guards_1 = require("../../utils/guards");
+const role_interceptor_1 = require("../../utils/interceptor/role.interceptor");
 const dto_1 = require("./dto");
 const query_1 = require("./dto/query");
 const post_service_1 = require("./post.service");
@@ -100,7 +102,8 @@ __decorate([
 ], PostController.prototype, "findPost", null);
 __decorate([
     (0, common_1.Post)('/:id/viewCount'),
-    (0, common_1.UseInterceptors)(utils_1.ResponseWithIdInterceptor),
+    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.ADMIN), utils_1.ResponseWithIdInterceptor),
     (0, kyoongdev_nestjs_1.RequestApi)({
         params: {
             name: 'id',
@@ -118,7 +121,8 @@ __decorate([
 ], PostController.prototype, "increasePostViewCount", null);
 __decorate([
     (0, common_1.Post)(),
-    (0, common_1.UseInterceptors)(utils_1.ResponseWithIdInterceptor),
+    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.ADMIN), utils_1.ResponseWithIdInterceptor),
     (0, kyoongdev_nestjs_1.RequestApi)({
         body: {
             type: dto_1.CreatePostDTO,
@@ -134,6 +138,8 @@ __decorate([
 ], PostController.prototype, "createPost", null);
 __decorate([
     (0, common_1.Patch)('/:id'),
+    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.ADMIN)),
     (0, kyoongdev_nestjs_1.RequestApi)({
         params: {
             name: 'id',
@@ -155,6 +161,8 @@ __decorate([
 ], PostController.prototype, "updatePost", null);
 __decorate([
     (0, common_1.Delete)('/:id'),
+    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.ADMIN)),
     (0, kyoongdev_nestjs_1.RequestApi)({
         params: {
             name: 'id',

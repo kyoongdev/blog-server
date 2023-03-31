@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { EmptyResponseDTO, ResponseWithIdDTO } from 'common';
-import { RequestApi, ResponseApi } from 'kyoongdev-nestjs';
+import { Auth, RequestApi, ResponseApi } from 'kyoongdev-nestjs';
 import { ResponseWithIdInterceptor } from 'utils';
+import { JwtAuthGuard } from 'utils/guards';
+import { Role, RoleInterceptorAPI } from 'utils/interceptor/role.interceptor';
 import { CreateTagDTO, TagsDTO } from './dto';
 import { TagService } from './tag.service';
 
@@ -22,7 +24,8 @@ export class TagController {
   }
 
   @Post()
-  @UseInterceptors(ResponseWithIdInterceptor)
+  @Auth(JwtAuthGuard)
+  @UseInterceptors(ResponseWithIdInterceptor, RoleInterceptorAPI(Role.ADMIN))
   @RequestApi({
     body: {
       type: CreateTagDTO,
@@ -39,6 +42,8 @@ export class TagController {
   }
 
   @Delete('/:id')
+  @Auth(JwtAuthGuard)
+  @UseInterceptors(RoleInterceptorAPI(Role.ADMIN))
   @RequestApi({
     params: {
       name: 'id',

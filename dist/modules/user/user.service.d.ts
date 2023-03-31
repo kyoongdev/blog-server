@@ -10,7 +10,7 @@ export declare class UserService {
     findUsers(paging: PagingDTO, args?: Prisma.UserFindManyArgs): Promise<PaginationDTO<import(".prisma/client").User>>;
     findUser(id: string): Promise<UserDetailDTO>;
     findUserByUserId(userId: string): Promise<UserDetailDTO>;
-    findUserBySocialId(socialId: string): Promise<UserDetailDTO>;
+    checkUserByUserId(userId: string): Promise<import(".prisma/client").User>;
     createUser(props: CreateUserDTO): Promise<string>;
     updateUser(id: string, props: UpdateUserDTO): Promise<void>;
     deleteUser(id: string): Promise<void>;

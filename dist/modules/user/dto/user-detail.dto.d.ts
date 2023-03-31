@@ -1,10 +1,10 @@
-import { User } from '@prisma/client';
+import { User, UserType } from '@prisma/client';
 export declare class UserDetailDTO {
     id: string;
     userId?: string;
     name?: string;
     password?: string;
-    socialId?: string;
+    userType: UserType;
     createdAt?: Date;
     updatedAt?: Date;
     constructor(props: Partial<User>);

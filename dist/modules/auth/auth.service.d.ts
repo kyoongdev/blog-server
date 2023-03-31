@@ -1,8 +1,15 @@
 import { PrismaService } from 'database/prisma.service';
-import { LoginDTO, RegisterDTO } from './dto';
+import { UserService } from 'modules/user/user.service';
+import { Role } from 'utils/interceptor/role.interceptor';
+import { Jsonwebtoken } from 'utils/jwt';
+import { LoginDTO, RegisterDTO, TokenDTO } from './dto';
 export declare class AuthService {
     private readonly database;
-    constructor(database: PrismaService);
-    login(props: LoginDTO): Promise<void>;
-    register(props: RegisterDTO): Promise<void>;
+    private readonly userService;
+    private jwt;
+    constructor(database: PrismaService, userService: UserService, jwt: Jsonwebtoken);
+    login(props: LoginDTO): Promise<TokenDTO>;
+    register(props: RegisterDTO): Promise<TokenDTO>;
+    refresh(props: TokenDTO): Promise<TokenDTO>;
+    createToken(id: string, userType: keyof typeof Role): TokenDTO;
 }

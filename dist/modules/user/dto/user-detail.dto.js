@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserDetailDTO = void 0;
+const client_1 = require("@prisma/client");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const kyoongdev_nestjs_1 = require("kyoongdev-nestjs");
 class UserDetailDTO {
@@ -20,7 +21,7 @@ class UserDetailDTO {
         this.id = props.id;
         this.userId = props.userId;
         this.name = props.name;
-        this.socialId = props.socialId;
+        this.userType = props.userType;
         this.password = props.password;
         this.createdAt = props.createdAt;
         this.updatedAt = props.updatedAt;
@@ -46,9 +47,9 @@ __decorate([
     __metadata("design:type", String)
 ], UserDetailDTO.prototype, "password", void 0);
 __decorate([
-    (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', nullable: true } }),
+    (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', enum: Object.keys(client_1.UserType) } }),
     __metadata("design:type", String)
-], UserDetailDTO.prototype, "socialId", void 0);
+], UserDetailDTO.prototype, "userType", void 0);
 __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', format: 'date-time', nullable: true } }),
     __metadata("design:type", Date)
