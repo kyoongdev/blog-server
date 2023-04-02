@@ -18,7 +18,7 @@ export class UserController {
 
   @Get('me')
   @Auth(JwtAuthGuard)
-  @UseInterceptors(RoleInterceptorAPI(Role.USER))
+  @UseInterceptors(RoleInterceptorAPI(Role.USER, true))
   @RequestApi({})
   @ResponseApi({
     type: UserDTO,

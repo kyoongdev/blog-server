@@ -11,14 +11,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 const prisma_service_1 = require("../../database/prisma.service");
 const kyoongdev_nestjs_1 = require("kyoongdev-nestjs");
 const dto_1 = require("./dto");
 const user_exception_1 = require("./user.exception");
 let UserService = class UserService {
-    constructor(database, exception) {
+    constructor(database, exception, configService) {
         this.database = database;
         this.exception = exception;
+        this.configService = configService;
     }
     async findUsers(paging, args = {}) {
         const { take, skip } = paging.getSkipTake();
@@ -62,6 +64,7 @@ let UserService = class UserService {
         return user;
     }
     async createUser(props) {
+        await props.hashPassword(Number(this.configService.get('PASSWORD_SALT')));
         const user = await this.database.user.create({
             data: {
                 ...props,
@@ -91,7 +94,9 @@ let UserService = class UserService {
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService, user_exception_1.UserException])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        user_exception_1.UserException,
+        config_1.ConfigService])
 ], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map

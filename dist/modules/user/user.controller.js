@@ -52,7 +52,7 @@ let UserController = class UserController {
 __decorate([
     (0, common_1.Get)('me'),
     (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
-    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.USER)),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.USER, true)),
     (0, kyoongdev_nestjs_1.RequestApi)({}),
     (0, kyoongdev_nestjs_1.ResponseApi)({
         type: dto_1.UserDTO,

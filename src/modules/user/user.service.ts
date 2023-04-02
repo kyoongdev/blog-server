@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'database/prisma.service';
 import { PaginationDTO, PagingDTO } from 'kyoongdev-nestjs';
@@ -7,7 +8,11 @@ import { UserException } from './user.exception';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly database: PrismaService, private readonly exception: UserException) {}
+  constructor(
+    private readonly database: PrismaService,
+    private readonly exception: UserException,
+    private readonly configService: ConfigService
+  ) {}
 
   async findUsers(paging: PagingDTO, args = {} as Prisma.UserFindManyArgs) {
     const { take, skip } = paging.getSkipTake();
@@ -61,6 +66,8 @@ export class UserService {
   }
 
   async createUser(props: CreateUserDTO) {
+    await props.hashPassword(Number(this.configService.get('PASSWORD_SALT')));
+
     const user = await this.database.user.create({
       data: {
         ...props,
