@@ -30,10 +30,10 @@ export class AuthService {
     if (isExist) throw new ConflictException('이미 존재하는 아이디입니다.');
 
     const user = await this.userService.createUser(
-      new CreateUserDTO({ userId: props.userId, password: props.password })
+      new CreateUserDTO({ userId: props.userId, password: props.password, name: props.name })
     );
 
-    return this.createToken(user, isExist.userType);
+    return this.createToken(user, Role.USER);
   }
 
   async refresh(props: TokenDTO): Promise<TokenDTO> {

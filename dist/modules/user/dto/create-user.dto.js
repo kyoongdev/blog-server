@@ -21,7 +21,6 @@ class CreateUserDTO {
             this.userId = props.userId;
             this.password = props.password;
             this.name = props.name;
-            this.socialId = props.socialId;
         }
     }
     async hashPassword(salt) {
@@ -40,9 +39,5 @@ __decorate([
     (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', nullable: true, description: '이름' } }),
     __metadata("design:type", String)
 ], CreateUserDTO.prototype, "name", void 0);
-__decorate([
-    (0, kyoongdev_nestjs_1.Property)({ apiProperty: { type: 'string', nullable: true, description: '소셜 id' } }),
-    __metadata("design:type", String)
-], CreateUserDTO.prototype, "socialId", void 0);
 exports.CreateUserDTO = CreateUserDTO;
 //# sourceMappingURL=create-user.dto.js.map

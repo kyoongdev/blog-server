@@ -15,6 +15,7 @@ const prisma_service_1 = require("../../database/prisma.service");
 const dto_1 = require("../user/dto");
 const user_service_1 = require("../user/user.service");
 const nanoid_1 = require("nanoid");
+const role_interceptor_1 = require("../../utils/interceptor/role.interceptor");
 const jwt_1 = require("../../utils/jwt");
 const dto_2 = require("./dto");
 let AuthService = class AuthService {
@@ -34,8 +35,8 @@ let AuthService = class AuthService {
         const isExist = await this.userService.checkUserByUserId(props.userId);
         if (isExist)
             throw new common_1.ConflictException('이미 존재하는 아이디입니다.');
-        const user = await this.userService.createUser(new dto_1.CreateUserDTO({ userId: props.userId, password: props.password }));
-        return this.createToken(user, isExist.userType);
+        const user = await this.userService.createUser(new dto_1.CreateUserDTO({ userId: props.userId, password: props.password, name: props.name }));
+        return this.createToken(user, role_interceptor_1.Role.USER);
     }
     async refresh(props) {
         const { accessToken, refreshToken } = props;
