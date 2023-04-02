@@ -25,7 +25,9 @@ let AuthService = class AuthService {
     }
     async login(props) {
         const user = await this.userService.findUserByUserId(props.userId);
-        user.comparePassword(props.password);
+        if (!user.comparePassword(props.password)) {
+            throw new common_1.BadRequestException('비밀번호가 일치하지 않습니다.');
+        }
         return this.createToken(user.id, user.userType);
     }
     async register(props) {
