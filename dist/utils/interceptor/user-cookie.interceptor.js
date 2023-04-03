@@ -7,10 +7,12 @@ class UserCookieInterceptor {
     intercept(context, next) {
         const request = context.switchToHttp().getRequest();
         const response = context.switchToHttp().getResponse();
-        return next.handle().pipe((0, rxjs_1.tap)(() => {
+        return next.handle().pipe((0, rxjs_1.map)((data) => {
+            response.setHeader('Access-Control-Allow-Credentials', 'true');
             response.cookie('f' + request.path, (0, request_ip_1.getClientIp)(request), {
                 maxAge: 1200000,
             });
+            return data;
         }));
     }
 }

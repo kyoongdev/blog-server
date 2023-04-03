@@ -16,10 +16,10 @@ const app_module_1 = require("./app.module");
 (async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, {
         logger: log_1.winstonLogger,
-        cors: {
-            origin: '*',
-            credentials: true,
-        },
+    });
+    app.enableCors({
+        origin: ['http://localhost:3000', 'https://kyoongdev.github.io'],
+        credentials: true,
     });
     app.use((0, cookie_parser_1.default)());
     const prismaService = app.get(prisma_service_1.PrismaService);

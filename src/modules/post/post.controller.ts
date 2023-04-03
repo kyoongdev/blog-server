@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Request, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { EmptyResponseDTO, ResponseWithIdDTO } from 'common';
+import { Request as Req } from 'express';
 import { Auth, Paging, PagingDTO, RequestApi, ResponseApi } from 'kyoongdev-nestjs';
-import { ResponseWithIdInterceptor } from 'utils';
+import { Cookie, ResponseWithIdInterceptor, UserCookieInterceptor } from 'utils';
 import { JwtAuthGuard } from 'utils/guards';
 import { Role, RoleInterceptorAPI } from 'utils/interceptor/role.interceptor';
 import { CreatePostDTO, PostDTO, PostsDTO, UpdatePostDTO } from './dto';
@@ -60,7 +61,7 @@ export class PostController {
 
   @Post('/:id/viewCount')
   @Auth(JwtAuthGuard)
-  @UseInterceptors(RoleInterceptorAPI(Role.ADMIN), ResponseWithIdInterceptor)
+  @UseInterceptors(RoleInterceptorAPI(Role.USER, true), ResponseWithIdInterceptor, UserCookieInterceptor)
   @RequestApi({
     params: {
       name: 'id',
@@ -74,7 +75,8 @@ export class PostController {
     },
     204
   )
-  async increasePostViewCount(@Param('id') id: string) {
+  async increasePostViewCount(@Param('id') id: string, @Cookie() cookie: string) {
+    if (cookie) return;
     await this.postService.increaseViewCount(id);
   }
 

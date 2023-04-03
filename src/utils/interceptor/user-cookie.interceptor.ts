@@ -8,11 +8,13 @@ export class UserCookieInterceptor implements NestInterceptor {
     const response = context.switchToHttp().getResponse<Response>();
 
     return next.handle().pipe(
-      tap(() => {
+      map((data) => {
+        response.setHeader('Access-Control-Allow-Credentials', 'true');
         response.cookie('f' + request.path, getClientIp(request), {
           maxAge: 1200000,
           // sameSite: 'none',
         });
+        return data;
       })
     );
   }

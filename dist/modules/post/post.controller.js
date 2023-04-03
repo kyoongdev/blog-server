@@ -46,7 +46,9 @@ let PostController = class PostController {
     async findPost(id) {
         return await this.postService.findPost(id);
     }
-    async increasePostViewCount(id) {
+    async increasePostViewCount(id, cookie) {
+        if (cookie)
+            return;
         await this.postService.increaseViewCount(id);
     }
     async createPost(body) {
@@ -103,7 +105,7 @@ __decorate([
 __decorate([
     (0, common_1.Post)('/:id/viewCount'),
     (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
-    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.ADMIN), utils_1.ResponseWithIdInterceptor),
+    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.USER, true), utils_1.ResponseWithIdInterceptor, utils_1.UserCookieInterceptor),
     (0, kyoongdev_nestjs_1.RequestApi)({
         params: {
             name: 'id',
@@ -115,8 +117,9 @@ __decorate([
         type: common_2.EmptyResponseDTO,
     }, 204),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, utils_1.Cookie)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], PostController.prototype, "increasePostViewCount", null);
 __decorate([

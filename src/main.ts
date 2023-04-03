@@ -12,10 +12,10 @@ import { AppModule } from './app.module';
 (async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: winstonLogger,
-    cors: {
-      origin: '*',
-      credentials: true,
-    },
+  });
+  app.enableCors({
+    origin: ['http://localhost:3000', 'https://kyoongdev.github.io'],
+    credentials: true,
   });
 
   app.use(cookieParser());
