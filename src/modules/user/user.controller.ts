@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Request, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 import { EmptyResponseDTO, ResponseWithIdDTO } from 'common';
@@ -23,7 +23,7 @@ export class UserController {
   @ResponseApi({
     type: UserDTO,
   })
-  async getMe(@ReqUser() user: User) {
+  async getMe(@ReqUser() user: User, @Query('user') query: any) {
     return new UserDTO(await this.userService.findUser(user.id));
   }
 

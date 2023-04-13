@@ -26,7 +26,7 @@ let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    async getMe(user) {
+    async getMe(user, query) {
         return new dto_1.UserDTO(await this.userService.findUser(user.id));
     }
     async findUser(id) {
@@ -58,8 +58,9 @@ __decorate([
         type: dto_1.UserDTO,
     }),
     __param(0, (0, decorator_1.ReqUser)()),
+    __param(1, (0, common_1.Query)('user')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getMe", null);
 __decorate([

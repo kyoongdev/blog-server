@@ -14,7 +14,7 @@ import { AppModule } from './app.module';
     logger: winstonLogger,
   });
   app.enableCors({
-    origin: ['http://localhost:3000', 'https://kyoongdev.github.io'],
+    origin: ['http://localhost:3000', 'https://kyoongdev.github.io', 'https://blog.kyoongdev.com'],
     credentials: true,
   });
 
