@@ -18,7 +18,7 @@ const app_module_1 = require("./app.module");
         logger: log_1.winstonLogger,
     });
     app.enableCors({
-        origin: ['http://localhost:3000', 'https://kyoongdev.github.io'],
+        origin: ['http://localhost:3000', 'https://kyoongdev.github.io', 'https://blog.kyoongdev.com'],
         credentials: true,
     });
     app.use((0, cookie_parser_1.default)());

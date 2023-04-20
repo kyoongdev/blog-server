@@ -1,4 +1,4 @@
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'database/prisma.service';
 import { CreateUserDTO } from 'modules/user/dto';
 import { UserService } from 'modules/user/user.service';
