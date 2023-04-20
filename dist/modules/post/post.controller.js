@@ -104,8 +104,6 @@ __decorate([
 ], PostController.prototype, "findPost", null);
 __decorate([
     (0, common_1.Post)('/:id/viewCount'),
-    (0, kyoongdev_nestjs_1.Auth)(guards_1.JwtAuthGuard),
-    (0, common_1.UseInterceptors)((0, role_interceptor_1.RoleInterceptorAPI)(role_interceptor_1.Role.USER, true), utils_1.ResponseWithIdInterceptor, utils_1.UserCookieInterceptor),
     (0, kyoongdev_nestjs_1.RequestApi)({
         params: {
             name: 'id',

@@ -9,12 +9,13 @@ import { PaginationMiddleware } from 'kyoongdev-nestjs';
 import { winstonLogger } from 'log';
 
 import { AppModule } from './app.module';
+
 (async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: winstonLogger,
   });
   app.enableCors({
-    origin: ['http://localhost:3000', 'https://kyoongdev.github.io', 'https://blog.kyoongdev.com'],
+    origin: ['http://localhost:3000', 'https://blog.kyoongdev.com/'],
     credentials: true,
   });
 

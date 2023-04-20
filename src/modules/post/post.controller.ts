@@ -60,8 +60,6 @@ export class PostController {
   }
 
   @Post('/:id/viewCount')
-  @Auth(JwtAuthGuard)
-  @UseInterceptors(RoleInterceptorAPI(Role.USER, true), ResponseWithIdInterceptor, UserCookieInterceptor)
   @RequestApi({
     params: {
       name: 'id',
