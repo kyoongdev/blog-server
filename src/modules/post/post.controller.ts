@@ -60,6 +60,7 @@ export class PostController {
   }
 
   @Post('/:id/viewCount')
+  @UseInterceptors(UserCookieInterceptor)
   @RequestApi({
     params: {
       name: 'id',
