@@ -18,7 +18,8 @@ export class AuthService {
   async login(props: LoginDTO) {
     const user = await this.userService.findUserByUserId(props.userId);
 
-    if (!user.comparePassword(props.password)) {
+    const isMatch = await user.comparePassword(props.password);
+    if (!isMatch) {
       throw new BadRequestException('비밀번호가 일치하지 않습니다.');
     }
 

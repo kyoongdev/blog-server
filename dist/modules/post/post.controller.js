@@ -104,6 +104,7 @@ __decorate([
 ], PostController.prototype, "findPost", null);
 __decorate([
     (0, common_1.Post)('/:id/viewCount'),
+    (0, common_1.UseInterceptors)(utils_1.UserCookieInterceptor),
     (0, kyoongdev_nestjs_1.RequestApi)({
         params: {
             name: 'id',
