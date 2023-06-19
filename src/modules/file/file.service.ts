@@ -1,25 +1,36 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { S3 } from 'aws-sdk';
-import { BucketService } from 'utils';
+
+import AWS from '@aws-sdk/client-s3';
+
 import { UploadedFileDTO } from './dto';
 
 @Injectable()
 export class FileService {
-  constructor(private readonly bucketService: BucketService, private readonly config: ConfigService) {}
+  constructor(private readonly configService: ConfigService) {}
 
   async uploadImage(file: Express.Multer.File) {
-    const params: S3.Types.PutObjectRequest = {
-      Bucket: 'kyoongdev-blog',
-      Key: file.originalname,
-      Body: file.buffer,
-      ACL: 'public-read',
-    };
+    try {
+      const key = `${Date.now() + file.originalname}`;
 
-    const result = await this.bucketService.upload(params);
+      await new AWS.S3({
+        region: 'Singapore',
+        endpoint: this.configService.get('S3_BUCKET_NAME'),
+        credentials: {
+          accessKeyId: this.configService.get('S3_ACCESS_KEY'),
+          secretAccessKey: this.configService.get('S3_SECRET_KEY'),
+        },
+      }).putObject({
+        Key: key,
+        Body: file.buffer,
+        Bucket: this.configService.get('AWS_S3_BUCKET_NAME'),
+      });
 
-    if (!result) throw new InternalServerErrorException('업로드에 실패했습니다.');
+      const url = `${this.configService.get('AWS_S3_BUCKET_URL')}${key}`;
 
-    return new UploadedFileDTO(result);
+      return new UploadedFileDTO(url);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
