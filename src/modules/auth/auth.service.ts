@@ -30,6 +30,9 @@ export class AuthService {
     const isExist = await this.userService.checkUserByUserId(props.userId);
     if (isExist) throw new ConflictException('이미 존재하는 아이디입니다.');
 
+    const isNameExist = await this.userService.checkUserByName(props.name);
+    if (isNameExist) throw new ConflictException('이미 존재하는 이름입니다.');
+
     const user = await this.userService.createUser(
       new CreateUserDTO({ userId: props.userId, password: props.password, name: props.name })
     );

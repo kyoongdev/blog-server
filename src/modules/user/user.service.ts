@@ -65,6 +65,16 @@ export class UserService {
     return user;
   }
 
+  async checkUserByName(name: string) {
+    const user = await this.database.user.findFirst({
+      where: {
+        name,
+      },
+    });
+
+    return user;
+  }
+
   async createUser(props: CreateUserDTO) {
     await props.hashPassword(Number(this.configService.get('PASSWORD_SALT')));
 
